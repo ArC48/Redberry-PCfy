@@ -1,0 +1,16 @@
+.center-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-class {
+  width: 781px;
+  height: 482px;
+  margin: 20px 0;
+}
+
+.redberry-text {
+    margin: 80px;
+}

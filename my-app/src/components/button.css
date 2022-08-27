@@ -1,0 +1,25 @@
+.button {
+    width: 387px;
+    height: 60px;
+    padding: 18px 60px;
+    border-radius: 8px;
+    border: none;
+    background: #62A1EB;
+    font-weight: 500;
+    font-size: 17px;
+    color: #FFFFFF;
+    margin: 20px 0;
+}
+
+.button:hover {
+    background: #317AD0;
+    cursor: pointer;
+}
+
+.button:focus {
+    background: #1A5DAB;;
+}
+
+.list-button {
+    margin-bottom: 147px;
+}

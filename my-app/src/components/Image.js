@@ -2,11 +2,12 @@ import React from "react";
 
 function Image(props) {
   return (
-    <div>
-      <img 
-        className={props.className} 
+    <div className={props.className}>
+      <img  
         src={props.img} 
         alt={props.alt} 
+        width={props.width}
+        height={props.height}
         />
     </div>
   );

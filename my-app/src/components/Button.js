@@ -6,6 +6,7 @@ function Button(props) {
     <div>
         <button 
         className={props.className}
+        onClick={props.handleFunction}
         >
             {props.text}
         </button>

@@ -9,17 +9,21 @@ function Input(props) {
     >
         <label className='label'>{props.label}</label>
         <input
+            name={props.name}
+            type = {props.type}
             placeholder={props.placeholder}
             value={props.value}
             className='input-class'
             disabled={false}
+            onInput={props.onInput}
         />
         <span>
-            <CheckMark />
+            {/* <CheckMark /> */}
         </span>
-        <p className='smol'
+        <p 
+          className='smol'
         >
-            {props.requirement}
+            {props.requirements}
         </p>
     </div>
   )

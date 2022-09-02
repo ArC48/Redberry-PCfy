@@ -1,12 +1,13 @@
 export const langValid = (str) => {
     const alphabet = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ';
-    let count = 0; 
+    if(!str) return false;
+    
     for(let i = 0; i < str.length; i++){
         if(!alphabet.includes(str[i])){
             return false;
         } else {
-            count++
+            continue;
         }
     }
-    return count;
+    return true;
 }

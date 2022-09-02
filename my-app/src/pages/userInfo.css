@@ -66,3 +66,7 @@ html {
 /* * {
     border: 1px solid red;
 } */
+
+.error-class {
+    color: red;
+}

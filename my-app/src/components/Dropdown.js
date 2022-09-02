@@ -6,6 +6,7 @@ function Dropdown(props) {
 
   return (
     <div>
+    <div>
         <select 
             value={props.selectValue}
             onChange={props.handleFunction}
@@ -15,6 +16,10 @@ function Dropdown(props) {
             </option>
             {props.options}
         </select>
+    </div>
+    <div>
+      {props.requirements}
+    </div>
     </div>
   )
     

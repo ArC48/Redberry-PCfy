@@ -3,23 +3,60 @@ import './laptopInfo.css'
 import Image from '../components/Image'
 import arrowBack from '../assets/arrowBack.svg'
 import redberryLogo from '../assets/redberryLogo.svg'
-import './laptopInfo.css'
 import FileUpload from '../components/FileUpload'
 import Input from '../components/Input'
 import Dropdown from '../components/Dropdown'
 import { reqWithoutBody } from '../services/ApiService'
 import Button from '../components/Button'
 import { laptopNameValidaton } from '../services/LaptopNameValidation'
+import { useDropzone } from 'react-dropzone'
 
 function LaptopInfo(props) {
+    // test code
+    const [specsInfo, setSpecsInfo] = useState({
+    image: [],
+    });
+
+    console.log(specsInfo)
+  const { getRootProps, getInputProps } = useDropzone({
+      accept: 'image/*',
+      onDrop: (acceptedFiles) => {
+          setSpecsInfo((oldSpecsInfo) => ({
+              ...oldSpecsInfo,
+              image: acceptedFiles.map((file) =>
+              Object.assign(file, { preview: URL.createObjectURL(file) })
+              ),
+            }));
+        },
+    });
+
+   const images = specsInfo.image.map((file) => (
+    <img
+      key={file.name}
+      src={file.preview}
+      style={{ width: '100%', height: '300px', objectFit: 'contain' }}
+      alt="laptop"
+    />
+  ));
+
+   const handleCancel = () => {
+    setSpecsInfo((oldInfo) => ({
+      ...oldInfo,
+      image: [],
+    }));
+  };
+    /////////////////////////////
+
 
     const [userInfoObj, setUserInfoObj] = useState(
         JSON.parse(localStorage.getItem('userInfo')) || {});
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([])
-
+    // const [storageType, setStorageType] = useState('')
+    
     console.log(userInfoObj)
+    // console.log(storageType)
     useEffect(() => {
         const getBrandsData = async () => {
             const brandsList = await reqWithoutBody('brands','GET');
@@ -40,46 +77,47 @@ function LaptopInfo(props) {
         localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
     }, [userInfoObj]);
 
+
     const onSubmitClick = () => {
         const errorsObj = {};
 
-        if(!userInfoObj.laptopName || !userInfoObj.laptopName.trim()) {
+        if(!userInfoObj.laptop.name || !userInfoObj.laptop.name.trim()) {
             errorsObj.laptopName = "ლეპტოპის სახელი არ უნდა იყოს ცარიელი"
         }
 
-        if(userInfoObj.laptopName && !laptopNameValidaton(userInfoObj.laptopName)) {
+        if(userInfoObj.laptop.name && !laptopNameValidaton(userInfoObj.laptop.name)) {
             errorsObj.laptopName = "გამოიყენეთ მხოლოდ ლათინური ასოები, ციფრები და !@#$%^&*()_+="
         }
 
-        if(!userInfoObj.CpuCore || !userInfoObj.CpuCore.trim()) {
+        if(!userInfoObj.laptop.CpuCore || !userInfoObj.laptop.CpuCore.trim()) {
             errorsObj.CpuCore = 'შეიყვანეთ CPU-ს ბირთვი'
         }
 
-        if(userInfoObj.CpuCore && !Number(userInfoObj.CpuCore)) {
+        if(userInfoObj.laptop.CpuCore && !Number(userInfoObj.laptop.CpuCore)) {
             errorsObj.CpuCore = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.CpuStream || !userInfoObj.CpuStream.trim()) {
+        if(!userInfoObj.laptop.CpuStream || !userInfoObj.laptop.CpuStream.trim()) {
             errorsObj.CpuStream = 'შეიყვანეთ CPU-ს ნაკადი'
         }
 
-        if(userInfoObj.CpuStream && !Number(userInfoObj.CpuStream)) {
+        if(userInfoObj.laptop.CpuStream && !Number(userInfoObj.laptop.CpuStream)) {
             errorsObj.CpuStream = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.RAM || !userInfoObj.RAM.trim()) {
+        if(!userInfoObj.laptop.RAM || !userInfoObj.laptop.RAM.trim()) {
             errorsObj.RAM = 'შეიყვანეთ ლეპტოპის RAM'
         }
 
-        if(userInfoObj.RAM && !Number(userInfoObj.RAM)) {
+        if(userInfoObj.laptop.RAM && !Number(userInfoObj.laptop.RAM)) {
             errorsObj.RAM = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.price || !userInfoObj.price.trim()) {
+        if(!userInfoObj.laptop.price || !userInfoObj.laptop.price.trim()) {
             errorsObj.price = 'შეიყვანეთ ლეპტოპის ფასი'
         }
 
-        if(userInfoObj.price && !Number(userInfoObj.price)) {
+        if(userInfoObj.laptop.price && !Number(userInfoObj.laptop.price)) {
             errorsObj.price = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
@@ -120,10 +158,27 @@ function LaptopInfo(props) {
                 </div>
             </div>
             <div className='form-container'>
-                <FileUpload 
+                {/* <FileUpload 
                     alt='laptop-image-upload'
                     id='laptopImg'
-                />
+                /> */}
+
+                {specsInfo.image.length > 0 ? (
+          <div id="uploadedImg">
+            {images}
+            <button onClick={handleCancel} id="cancelIcon">back</button>
+          </div>
+        ) : (
+          <div id="uploadImgField" {...getRootProps()}>
+            <p id="imgUploadTxt">ჩააგდე ან ატვირთე ლეპტოპის ფოტო</p>
+            <p id="uploadImgLabel">ატვირთე</p>
+            <input
+              id="uploadImgInput"
+              name="uploadImgInput"
+              {...getInputProps()}
+            />
+          </div>
+        )}
                 <div className='flex-row'>
                     <Input 
                         placeholder="HP"
@@ -131,10 +186,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                laptopName: event.target.value.trim()
+                                laptop : {
+                                    ...prev.laptop,
+                                    name: event.target.value.trim()
+                                } 
                             }))
                         }}
-                        value={userInfoObj.laptopName}
+                        value={userInfoObj.laptop.name}
                         requirements={
                             errors.laptopName? 
                                 (
@@ -150,13 +208,53 @@ function LaptopInfo(props) {
                             }
                         />
                     <Dropdown 
+                        selectValue={userInfoObj.laptop.brand || 'brand'}
+                        optionValue='brand'
+                        defaultName='ლეპტოპის ბრენდი'
                         options={brandsOptions}
+                        requirements={
+                                    errors.brand? 
+                                        (
+                                            <p className='error-class'>
+                                                {errors.brand}
+                                            </p> 
+                                        ):''
+                                    }
+                        handleFunction={(event) => {
+                            setUserInfoObj((prev) => ({
+                                ...prev,
+                                laptop: {
+                                    ...prev.laptop,
+                                    brand: event.target.value
+                                }
+                            }));
+                        }}
                     />
                 </div>
                 <hr />
                 <div className='flex-row'>
                     <Dropdown 
+                        selectValue={userInfoObj.laptop.cpu || 'cpu'}
+                        optionValue='cpu'
+                        defaultName='CPU'
                         options={cpusOptions}
+                        requirements={
+                                    errors.cpu? 
+                                        (
+                                            <p className='error-class'>
+                                                {errors.cpu}
+                                            </p> 
+                                        ):''
+                                    }
+                        handleFunction={(event) => {
+                            setUserInfoObj((prev) => ({
+                                ...prev,
+                                laptop: {
+                                    ...prev.laptop,
+                                    cpu: event.target.value
+                                }
+                            }));
+                        }}
                     />
                     <Input 
                         placeholder="14"
@@ -164,10 +262,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                CpuCore: event.target.value.trim()
+                                laptop: {
+                                    ...prev.laptop,
+                                    CpuCore: event.target.value.trim()
+                                }
                             }))
                         }}
-                        value={userInfoObj.CpuCore}
+                        value={userInfoObj.laptop.CpuCore}
                         requirements={
                             errors.CpuCore? 
                                 (
@@ -188,10 +289,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                CpuStream: event.target.value.trim()
-                            }))
+                                laptop: {
+                                    ...prev.laptop,
+                                    CpuStream: event.target.value.trim()
+                                    }
+                                }))
                         }}
-                        value={userInfoObj.CpuStream}
+                        value={userInfoObj.laptop.CpuStream}
                         requirements={
                             errors.CpuStream? 
                                 (
@@ -214,10 +318,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                RAM: event.target.value.trim()
+                                laptop: {
+                                    ...prev.laptop,
+                                    RAM: event.target.value.trim()
+                                }
                             }))
                         }}
-                        value={userInfoObj.RAM}
+                        value={userInfoObj.laptop.RAM}
                         requirements={
                             errors.RAM? 
                                 (
@@ -234,9 +341,39 @@ function LaptopInfo(props) {
                         />
                     <p>მეხსიერების ტიპი</p>
                     <div className='flex-row'>
-                        <input type='radio' id='HDD'/>
+                        <input 
+                            type='radio' 
+                            id='HDD'
+                            name={userInfoObj.laptop.storageType}
+                            value='HDD'
+                            checked={userInfoObj.laptop.storageType === 'HDD'}
+                            onChange={(event) => {
+                                setUserInfoObj(prev => ({
+                                    ...prev,
+                                    laptop: {
+                                        ...prev.laptop,
+                                        storageType: event.target.value
+                                    }
+                                }))
+                            }}
+                        />
                         <label htmforlFor='HDD'>HDD</label>
-                        <input type='radio' id='SSD'/>
+                        <input 
+                            type='radio' 
+                            id='SSD'
+                            name={userInfoObj.laptop.storageType}
+                            value='SSD'
+                            checked={userInfoObj.laptop.storageType === 'SSD'}
+                            onChange={(event) => {
+                                setUserInfoObj(prev => ({
+                                    ...prev,
+                                    laptop: {
+                                        ...prev.laptop,
+                                        storageType: event.target.value
+                                    }
+                                }))
+                            }}
+                        />
                         <label htmforlFor='HDD'>SSD</label>
                     </div>
                 </div>
@@ -249,10 +386,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                boughtDate: event.target.value.trim()
+                                laptop: {
+                                    ...prev.laptop,
+                                    boughtDate: event.target.value.trim()
+                                }
                             }))
                         }}
-                        value={userInfoObj.boughtDate}
+                        value={userInfoObj.laptop.boughtDate}
                     />
                     <Input 
                         placeholder='0000'
@@ -260,10 +400,13 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                price: event.target.value.trim()
+                                laptop: {
+                                    ...prev.laptop,
+                                    price: event.target.value.trim()
+                                }
                             }))
                         }}
-                        value={userInfoObj.price}
+                        value={userInfoObj.laptop.price}
                         requirements={
                             errors.price? 
                                 (
@@ -281,9 +424,39 @@ function LaptopInfo(props) {
                 </div>
                 <div>
                     <p>ლეპტოპის მდგომარეობა</p>
-                    <input type='radio' id='new'/>
+                    <input 
+                        type='radio' 
+                        id='new'
+                        name={userInfoObj.laptop.condition}
+                        value='new'
+                        checked={userInfoObj.laptop.condition === 'new'}
+                        onChange={(event) => {
+                                setUserInfoObj(prev => ({
+                                    ...prev,
+                                    laptop: {
+                                        ...prev.laptop,
+                                        condition: event.target.value
+                                    }
+                                }))
+                            }}
+                        />
                     <label htmforlFor='HDD'>ახალი</label>
-                    <input type='radio' id='used'/>
+                    <input 
+                        type='radio' 
+                        id='used'
+                        name={userInfoObj.laptop.condition}
+                        value='used'
+                        checked={userInfoObj.laptop.condition === 'used'}
+                        onChange={(event) => {
+                                setUserInfoObj(prev => ({
+                                    ...prev,
+                                    laptop: {
+                                        ...prev.laptop,
+                                        condition: event.target.value
+                                    }
+                                }))
+                            }}
+                        />
                     <label htmforlFor='HDD'>მეორადი</label>
                 </div>
                 <div>

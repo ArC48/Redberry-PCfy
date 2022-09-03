@@ -1,7 +1,4 @@
 .button {
-    width: 387px;
-    height: 60px;
-    padding: 18px 60px;
     border-radius: 8px;
     border: none;
     background: #62A1EB;
@@ -9,6 +6,15 @@
     font-size: 17px;
     color: #FFFFFF;
     margin: 20px 0;
+    height: 60px;
+}
+
+.big-button {
+    width: 387px;
+}
+
+.small-button {
+    width: 176px;
 }
 
 .button:hover {

@@ -13,7 +13,7 @@ function Input(props) {
             type = {props.type}
             placeholder={props.placeholder}
             value={props.value}
-            className='input-class'
+            className={props.inputClass}
             disabled={false}
             onInput={props.onInput}
         />

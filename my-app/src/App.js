@@ -6,7 +6,7 @@ import LaptopInfo from './pages/LaptopInfo'
 function App() {
   return (
     <div className="App">
-      <LaptopInfo />
+      <UserInfo />
     </div>
   );
 }

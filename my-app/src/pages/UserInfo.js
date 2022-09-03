@@ -146,6 +146,7 @@ function UserInfo(props) {
             <div className='form-container'>
                 <div className='flex-row'>
                     <Input 
+                        inputClass='halfway-input input-class'
                         label='სახელი'
                         placeholder='გრიშა'
                         onInput={(event) => {
@@ -170,6 +171,7 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
+                    inputClass='halfway-input input-class'
                         label='გვარი'
                         placeholder='ბაგრატიონი'
                         onInput={(event) => {
@@ -241,6 +243,7 @@ function UserInfo(props) {
                 </div>
                 <div className='flex-column'>
                     <Input 
+                        inputClass='full-input input-class'
                         type='email'
                         name='email'
                         label='მეილი'
@@ -267,6 +270,7 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
+                        inputClass='full-input input-class'
                         label='ტელეფონის ნომერი'
                         placeholder='+995 598 00 07 01'
                         onInput={(event) => {
@@ -291,11 +295,13 @@ function UserInfo(props) {
                                     }
                     /> 
                 </div>
+                <div className='align-right'>
                 <Button 
-                    className='button' 
+                    className='button small-button' 
                     text='შემდეგი'
                     handleFunction={onSubmitClick}
                     />
+                </div>
             </div>
             <div>
                 <Image 

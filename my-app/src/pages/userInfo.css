@@ -46,7 +46,7 @@ html {
     height: 973px;
     width: 70%;
     margin-top: 50px;
-    padding: 96px 174px;
+    padding: 88px 216px;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -69,4 +69,11 @@ html {
 
 .error-class {
     color: red;
+}
+
+.align-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    padding: 8px 24px;
 }

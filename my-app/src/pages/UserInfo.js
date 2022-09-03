@@ -144,9 +144,10 @@ function UserInfo(props) {
                 <p className='route-name'>ლეპტოპის მახასიათებლები</p>
             </div>
             <div className='form-container'>
-                <div className='flex-row'>
+                <div className='flex-row justify-center'>
                     <Input 
-                        inputClass='halfway-input input-class'
+                        inputClass={errors.firstName? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        labelClass={errors.firstName? 'error-class label' : 'label'}
                         label='სახელი'
                         placeholder='გრიშა'
                         onInput={(event) => {
@@ -171,7 +172,8 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
-                    inputClass='halfway-input input-class'
+                        inputClass={errors.lastName? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        labelClass={errors.lastName? 'error-class label' : 'label'}
                         label='გვარი'
                         placeholder='ბაგრატიონი'
                         onInput={(event) => {
@@ -202,15 +204,7 @@ function UserInfo(props) {
                         optionValue='team'
                         defaultName='თიმი'
                         options={teamsOptions}
-                        requirements={
-                                    errors.team? 
-                                        (
-                                            <p className='error-class'>
-                                                {errors.team}
-                                            </p> 
-                                        ):''
-                                    }
-                    
+                        dropdownClass={errors.team? "full-width dropdown-error dropdown":"full-width dropdown"}
                         handleFunction={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
@@ -224,14 +218,7 @@ function UserInfo(props) {
                         optionValue='position'
                         defaultName='პოზიცია'
                         options={positionsOptions}
-                        requirements={
-                                    errors.position? 
-                                        (
-                                            <p className='error-class'>
-                                                {errors.position}
-                                            </p> 
-                                        ):''
-                                    }
+                        dropdownClass={errors.position? "full-width dropdown-error dropdown":"full-width dropdown"}
                         handleFunction={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
@@ -243,7 +230,8 @@ function UserInfo(props) {
                 </div>
                 <div className='flex-column'>
                     <Input 
-                        inputClass='full-input input-class'
+                        inputClass={errors.mail? 'full-width input-class input-error' : 'full-width input-class'}
+                        labelClass={errors.mail? 'error-class label' : 'label'}
                         type='email'
                         name='email'
                         label='მეილი'
@@ -270,13 +258,15 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
-                        inputClass='full-input input-class'
+                        inputClass={errors.phone? 'full-width input-class input-error' : 'full-width input-class'}
+                        labelClass={errors.phone? 'error-class label' : 'label'}
                         label='ტელეფონის ნომერი'
                         placeholder='+995 598 00 07 01'
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                phone: event.target.value
+                                phone: event.target.value,
+                                laptop: {}
                             }))
                         }}
                         value={userInfoObj.phone || '+995'}

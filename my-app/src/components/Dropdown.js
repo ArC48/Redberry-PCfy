@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import './dropdown.css'
 
 function Dropdown(props) {
@@ -8,6 +7,7 @@ function Dropdown(props) {
     <div>
       <div className='dropdown-container'>
           <select 
+              className={props.dropdownClass}
               value={props.selectValue}
               onChange={props.handleFunction}
           >

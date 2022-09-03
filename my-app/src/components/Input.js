@@ -7,7 +7,7 @@ function Input(props) {
     <div 
     className={'input-container ' + props.className}
     >
-        <label className='label'>{props.label}</label>
+        <label className={props.labelClass}>{props.label}</label>
         <input
             name={props.name}
             type = {props.type}
@@ -17,8 +17,8 @@ function Input(props) {
             disabled={false}
             onInput={props.onInput}
         />
-        <span>
-            {/* <CheckMark /> */}
+        <span className='input-span'>
+            {props.span}
         </span>
         <p 
           className='smol'

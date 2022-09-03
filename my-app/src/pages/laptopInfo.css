@@ -1,0 +1,204 @@
+.error-class {
+    color: #E52F2F;
+}
+
+.uploadedImg {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.img-container {
+    height: 423px;
+    width: 878px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    margin-bottom: 45px;
+}
+
+.normal-img-container {
+    border: 2px dashed #4386A9;
+}
+
+.error-img-container {
+    border: 2px dashed #E52F2F;
+    background: #f765652d;
+}
+
+.laptop-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    height: 100%;
+    width: 70%;
+    margin-top: 50px;
+    padding: 88px 216px;
+}
+
+.upload-img-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#dropUploadText {
+    width: 200px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 60px;
+}
+
+.uploadLink {
+    width: 233px;
+    transition: all 0.2s ease-in-out;
+}
+
+.uploadLink:hover {
+    cursor:pointer;
+    color: #F6F6F6;
+    background: #BED918;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.mark {
+    height: 25px;
+    width: 25px;
+    margin-right: 15px;
+}
+
+.flex-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.margin-top {
+    margin-top: 3px;
+}
+
+.removePic-btn {
+    margin-top: 10px;
+    width: 233px;
+    height: 50px;
+    font-weight: 500;
+    background:#4386A9;
+    transition: background 0.2s ease-in-out;
+}
+
+.removePic-btn:hover {
+    cursor: pointer;
+    background: #f93a1db2;
+}
+
+.stretch-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dropdown {
+    margin-top: 29px;
+    border-radius: 8px;
+    border: none;
+    background: #EBEBEB;
+}
+
+.dropdown-halfway {
+    width: 408px;
+}
+
+.hr {
+    /* height: 2px; */
+    border: 1px solid #C7C7C7;
+    width: 100%;
+}
+
+.third-width {
+    width: 325px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.flex-start {
+    display: flex;
+    justify-content:flex-start !important;
+}
+
+.radio {
+    /* margin: 0 30px; */
+    padding-left:30px;
+}
+
+#HDD, #SSD, #new, #used {
+    margin-right:7px;
+    margin-top: 2px;
+}
+
+#SSD, #new {
+    padding-right: 18px;
+}
+
+.error-text {
+    color: #E52F2F;
+}
+
+.normal-text {
+    color: #4386A9;
+}
+
+.basic-text {
+    color: #000000;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.left-positioned {
+    margin-left: 78px;
+    width: 100%;
+}
+
+#back-btn {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: #62A1EB;
+}
+
+#back-btn:hover {
+    cursor:pointer
+}
+
+.padding-around {
+    padding: 0 33px;
+}
+
+.save-btn {
+    width: 148px !important;
+    font-size: 20px;
+}
+
+.margin-bottom {
+    margin-bottom: 100px;
+}

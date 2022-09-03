@@ -43,7 +43,7 @@ html {
 
 .form-container {
     background: #ffffff;
-    height: 973px;
+    height: 100%;
     width: 70%;
     margin-top: 50px;
     padding: 88px 216px;
@@ -55,6 +55,9 @@ html {
 .flex-row {
     display: flex;
     flex-direction: row;
+}
+
+.justify-center {
     justify-content: center;
 }
 
@@ -68,7 +71,7 @@ html {
 } */
 
 .error-class {
-    color: red;
+    color: #E52F2F;
 }
 
 .align-right {

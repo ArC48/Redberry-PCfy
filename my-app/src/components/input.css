@@ -11,6 +11,10 @@
     font-weight: 400;
 }
 
+.input-error {
+    border: 1.8px solid #E52F2F !important;
+}
+
 .halfway-input {
     width: 407px;
 }
@@ -27,7 +31,7 @@
 }
 
 .label {
-    color: #000000;
+    /* color: #000000; */
     font-weight: 500;
     line-height: 21px;
     font-size: 18px;
@@ -69,7 +73,7 @@
     border: 1.8px solid #e52f2f;
 }
 
-span {
+.input-span {
     position: absolute;
     top: 56px;
     right: 40px;

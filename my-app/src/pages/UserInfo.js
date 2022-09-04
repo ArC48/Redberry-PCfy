@@ -160,9 +160,9 @@ function UserInfo(props) {
                 <p className='route-name'>ლეპტოპის მახასიათებლები</p>
             </div>
             <div className='form-container'>
-                <div className='flex-row justify-center'>
+                <div className='flex-row justify-center name-surname-inputs'>
                     <Input 
-                        inputClass={errors.name? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        inputClass={errors.name? 'name-input input-class input-error' : 'name-input input-class'}
                         labelClass={errors.name? 'error-class label' : 'label'}
                         label='სახელი'
                         placeholder='გრიშა'
@@ -188,7 +188,7 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
-                        inputClass={errors.surname? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        inputClass={errors.surname? 'name-input input-class input-error' : 'name-input input-class'}
                         labelClass={errors.surname? 'error-class label' : 'label'}
                         label='გვარი'
                         placeholder='ბაგრატიონი'

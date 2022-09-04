@@ -80,3 +80,7 @@ html {
     justify-content: end;
     padding: 8px 24px;
 }
+
+.name-input {
+    width: 36rem;
+}

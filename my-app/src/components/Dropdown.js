@@ -5,7 +5,7 @@ function Dropdown(props) {
 
   return (
     <div>
-      <div className='dropdown-container'>
+      <div className={'dropdown-container ' + props.containerClass}>
           <select 
               className={props.dropdownClass}
               value={props.selectValue}

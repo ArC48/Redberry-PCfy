@@ -289,6 +289,7 @@ function LaptopInfo(props) {
                 </div>
                 <div className='stretch-row'>
                     <Input
+                        className="halfway"
                         inputClass={errors.laptopName? 'halfway-input input-class input-error' : 'halfway-input input-class'}
                         labelClass={errors.laptopName? 'error-class label' : 'label'}
                         placeholder="HP"
@@ -316,7 +317,7 @@ function LaptopInfo(props) {
                             }
                         />
                         <Dropdown 
-                            dropdownClass={errors.brand? "dropdown-error dropdown dropdown-halfway":"dropdown dropdown-halfway"}
+                            dropdownClass={errors.brand? "dropdown-error dropdown dropdown-container-class":"dropdown dropdown-container-class"}
                             selectValue={laptopInfoObj.laptop_brand_id || 'brand'}
                             optionValue='brand'
                             defaultName='ლეპტოპის ბრენდი'
@@ -403,6 +404,7 @@ function LaptopInfo(props) {
                 </div>
                 <div className='flex-row'>
                     <Input 
+                        className='third'
                         inputClass={errors.RAM? 'flex-start halfway-input input-class input-error' : 'flex-start halfway-input input-class'}
                         labelClass={errors.RAM? 'error-class label' : 'label'}
                         placeholder='16'
@@ -482,7 +484,8 @@ function LaptopInfo(props) {
                 <hr className='hr'/>
                 <div className='flex-row'>
                     <Input 
-                        inputClass='halfway-input input-class'
+                        className='halfway'
+                        inputClass=' input-class'
                         labelClass="label"
                         placeholder='დდ / თთ / წწწწ'
                         type='date'
@@ -497,6 +500,7 @@ function LaptopInfo(props) {
                         value={laptopInfoObj.laptop_purchase_date}
                     />
                     <Input 
+                        className='halfway'
                         inputClass={errors.price? 'halfway-input input-class input-error' : 'halfway-input input-class'}
                         labelClass={errors.price? 'error-class label' : 'label'}
                         placeholder='0000'

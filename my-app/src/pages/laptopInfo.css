@@ -84,7 +84,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .margin-top {
@@ -108,7 +108,7 @@
 .stretch-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     width: 100%;
 }
 
@@ -119,14 +119,11 @@
     background: #EBEBEB;
 }
 
-.dropdown-halfway {
-    width: 408px;
-}
-
 .hr {
     /* height: 2px; */
     border: 1px solid #C7C7C7;
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .third-width {
@@ -201,4 +198,29 @@
 
 .margin-bottom {
     margin-bottom: 100px;
+}
+
+.halfway {
+    width: 50%;
+}
+
+.halfway input {
+    width: 100%;
+}
+
+.third {
+    width: 30%;
+}
+
+.third input {
+    width: 100%;
+}
+
+.halfway-dropdown {
+    width: 100%;
+    border: 1px solid red;
+}
+
+.dropdown-container-class {
+    width: 35rem;
 }

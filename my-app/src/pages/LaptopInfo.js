@@ -17,35 +17,47 @@ import { useNavigate } from 'react-router-dom'
 
 function LaptopInfo(props) {
 
-    const [userInfoObj, setUserInfoObj] = useState(
-        JSON.parse(localStorage.getItem('userInfo')));
+    const [laptopInfoObj, setLaptopInfoObj] = useState(
+        JSON.parse(localStorage.getItem('laptopInfo')) || 
+        {
+        laptop_name: '',
+        // laptop_image_base64: '',
+        laptop_image: [],
+        laptop_brand_id: '',
+        laptop_cpu: '',
+        laptop_cpu_cores: '',
+        laptop_cpu_threads: '',
+        laptop_ram: '',
+        laptop_hard_drive_type: '',
+        laptop_state: '',
+        laptop_purchase_date: '',
+        laptop_price: '',
+    });
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([])
 
     const navigate = useNavigate();
     
-    console.log(userInfoObj)
+    console.log(laptopInfoObj)
     
      // test code
 
   const { getRootProps, getInputProps } = useDropzone({
       accept: 'image/*',
       onDrop: (acceptedFiles) => {
-          setUserInfoObj((prev) => ({
+          setLaptopInfoObj((prev) => ({
               ...prev,
-              laptop : {
-                ...prev.laptop,
-                image: acceptedFiles.map((file) =>
-              Object.assign(file, { preview: URL.createObjectURL(file) })
+                laptop_image: acceptedFiles.map((file) =>
+                Object.assign(file, { preview: URL.createObjectURL(file) })
               ),
               }
-            }));
+            ));
         },
     });
 
-   const receivedImage = userInfoObj.laptop.image? 
-    userInfoObj.laptop.image.map((file) => (
+   const receivedImage = laptopInfoObj.laptop_image? 
+    laptopInfoObj.laptop_image.map((file) => (
         <img
         key={file.name}
         src={file.preview}
@@ -56,13 +68,11 @@ function LaptopInfo(props) {
 
 
    const handleCancel = () => {
-    setUserInfoObj((prev) => ({
+    setLaptopInfoObj((prev) => ({
               ...prev,
-              laptop : {
-                ...prev.laptop,
                 image: []
-              }
-            }));
+            }
+        ));
   };
 
     /////////////////////////////
@@ -83,80 +93,113 @@ function LaptopInfo(props) {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
-    }, [userInfoObj]);
+        localStorage.setItem('laptopInfo', JSON.stringify(laptopInfoObj));
+    }, [laptopInfoObj]);
 
 
     const onSubmitClick = () => {
         const errorsObj = {};
 
-        if(!userInfoObj.laptop.name || !userInfoObj.laptop.name.trim()) {
+        if(!laptopInfoObj.laptop_name || !laptopInfoObj.laptop_name.trim()) {
             errorsObj.laptopName = "ლეპტოპის სახელი არ უნდა იყოს ცარიელი"
         }
 
-        if(userInfoObj.laptop.name && !laptopNameValidaton(userInfoObj.laptop.name)) {
+        if(laptopInfoObj.laptop_name && !laptopNameValidaton(laptopInfoObj.laptop_name)) {
             errorsObj.laptopName = "გამოიყენეთ ლათინური ასოები, ციფრები, !@#$%^&*()_+="
         }
         
-        if(!userInfoObj.laptop.brand) {
+        if(!laptopInfoObj.laptop_brand_id) {
             errorsObj.brand = "სავალდებულო ველი"
         }
 
-        if(!userInfoObj.laptop.cpu) {
+        if(!laptopInfoObj.laptop_cpu) {
             errorsObj.cpu = "სავალდებულო ველი"
         }
 
-        if(!userInfoObj.laptop.storageType) {
+        if(!laptopInfoObj.laptop_hard_drive_type) {
             errorsObj.storageType = "სავალდებულო ველი"
         }
 
-        if(!userInfoObj.laptop.CpuCore || !userInfoObj.laptop.CpuCore.trim()) {
+        if(!laptopInfoObj.laptop_cpu_cores || !laptopInfoObj.laptop_cpu_cores.trim()) {
             errorsObj.CpuCore = 'შეიყვანეთ CPU-ს ბირთვი'
         }
 
-        if(userInfoObj.laptop.CpuCore && !Number(userInfoObj.laptop.CpuCore)) {
+        if(laptopInfoObj.laptop_cpu_cores && !Number(laptopInfoObj.laptop_cpu_cores)) {
             errorsObj.CpuCore = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.laptop.CpuStream || !userInfoObj.laptop.CpuStream.trim()) {
+        if(!laptopInfoObj.laptop_cpu_threads || !laptopInfoObj.laptop_cpu_threads.trim()) {
             errorsObj.CpuStream = 'შეიყვანეთ CPU-ს ნაკადი'
         }
 
-        if(userInfoObj.laptop.CpuStream && !Number(userInfoObj.laptop.CpuStream)) {
+        if(laptopInfoObj.laptop_cpu_threads && !Number(laptopInfoObj.laptop_cpu_threads)) {
             errorsObj.CpuStream = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.laptop.RAM || !userInfoObj.laptop.RAM.trim()) {
+        if(!laptopInfoObj.laptop_ram || !laptopInfoObj.laptop_ram.trim()) {
             errorsObj.RAM = 'შეიყვანეთ ლეპტოპის RAM'
         }
 
-        if(userInfoObj.laptop.RAM && !Number(userInfoObj.laptop.RAM)) {
+        if(laptopInfoObj.laptop_ram && !Number(laptopInfoObj.laptop_ram)) {
             errorsObj.RAM = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.laptop.price || !userInfoObj.laptop.price.trim()) {
+        if(!laptopInfoObj.laptop_price || !laptopInfoObj.laptop_price.trim()) {
             errorsObj.price = 'შეიყვანეთ ლეპტოპის ფასი'
         }
 
-        if(userInfoObj.laptop.price && !Number(userInfoObj.laptop.price)) {
+        if(laptopInfoObj.laptop_price && !Number(laptopInfoObj.laptop_price)) {
             errorsObj.price = 'გამოიყენეთ მხოლოდ ციფრები'
         }
 
-        if(!userInfoObj.laptop.condition) {
+        if(!laptopInfoObj.laptop_state) {
             errorsObj.condition = "სავალდებულო ველი"
         }
 
-        if(!userInfoObj.laptop.image) {
+        if(!laptopInfoObj.laptop_image.length) {
             errorsObj.image = "სავალდებულო ველი"
         }
 
         setErrors(errorsObj);
+
+        if(!Object.keys(errors).length) {
+            const userInfoObj = JSON.parse(localStorage.getItem('userInfo'));
+
+            const userFinalInfoObject = {
+                name: userInfoObj.name,
+                surname: userInfoObj.surname,
+                team_id: Number(userInfoObj.team),
+                position_id: Number(userInfoObj.position),
+                phone_number: `+${userInfoObj.number}`,
+                email: userInfoObj.mail,
+                token: '7bbb011efcb959c1a848307bcc39a10e',
+                laptop_name: laptopInfoObj.laptop_name,
+                laptop_brand_id: Number(laptopInfoObj.laptop_brand_id),
+                laptop_image: laptopInfoObj.laptop_image,
+                laptop_cpu: laptopInfoObj.laptop_cpu,
+                laptop_cpu_cores: Number(laptopInfoObj.laptop_cpu_cores),
+                laptop_cpu_threads: Number(laptopInfoObj.laptop_cpu_threads),
+                laptop_ram: Number(laptopInfoObj.laptop_ram),
+                laptop_hard_drive_type: laptopInfoObj.laptop_hard_drive_type,
+                laptop_state: laptopInfoObj.laptop_state,
+                laptop_purchase_date: laptopInfoObj.laptop_purchase_date,
+                laptop_price: laptopInfoObj.laptop_price,
+          };
+        }
+
+
+    //   for (let key in userFinalInfoObject) {
+    //     formData.append(key, userFinalInfoObject[key]);
+    //   }
+
+    //   postMethod(userFinalInfoObject);
+        
     }
 
-    const brandsOptions = brands.map((singleTeam) => {
+    const brandsOptions = brands.map((singleBrand) => {
         return (
-            <option key={singleTeam.id} id={singleTeam.id}>
-                {singleTeam.name}
+            <option key={singleBrand.id} id={singleBrand.id}>
+                {singleBrand.name}
             </option>
         );
     });
@@ -196,7 +239,7 @@ function LaptopInfo(props) {
                         'img-container margin-bottom normal-img-container'
                     }
                 >
-                    {userInfoObj.laptop.image.length > 0 ? (
+                    {laptopInfoObj.laptop_image.length > 0 ? (
                 <div className="uploadedImg">
                     {receivedImage}
                     <div className='space-between'>
@@ -206,11 +249,11 @@ function LaptopInfo(props) {
                                 img={mark}
                             />
                             <p className='margin-top'>
-                            {userInfoObj.laptop.image[0].path.length > 50? 
-                            userInfoObj.laptop.image[0].path.slice(0,45) + '...' 
-                            + userInfoObj.laptop.image[0].path.slice(-5)
+                            {laptopInfoObj.laptop_image[0].path.length > 50? 
+                            laptopInfoObj.laptop_image[0].path.slice(0,45) + '...' 
+                            + laptopInfoObj.laptop_image[0].path.slice(-5)
                             :
-                            userInfoObj.laptop.image[0].path
+                            laptopInfoObj.laptop_image[0].path
                             }
                             </p>
                         </div>
@@ -251,15 +294,13 @@ function LaptopInfo(props) {
                         placeholder="HP"
                         label="ლეპტოპის სახელი"
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop : {
-                                    ...prev.laptop,
-                                    name: event.target.value.trim()
+                                laptop_name: event.target.value.trim()
                                 } 
-                            }))
+                            ))
                         }}
-                        value={userInfoObj.laptop.name? userInfoObj.laptop.name:''}
+                        value={laptopInfoObj.laptop_name? laptopInfoObj.laptop_name:''}
                         requirements={
                             errors.laptopName? 
                                 (
@@ -276,18 +317,16 @@ function LaptopInfo(props) {
                         />
                         <Dropdown 
                             dropdownClass={errors.brand? "dropdown-error dropdown dropdown-halfway":"dropdown dropdown-halfway"}
-                            selectValue={userInfoObj.laptop.brand || 'brand'}
+                            selectValue={laptopInfoObj.laptop_brand_id || 'brand'}
                             optionValue='brand'
                             defaultName='ლეპტოპის ბრენდი'
                             options={brandsOptions}
                             handleFunction={(event) => {
-                                setUserInfoObj((prev) => ({
+                                setLaptopInfoObj((prev) => ({
                                     ...prev,
-                                    laptop: {
-                                        ...prev.laptop,
-                                        brand: event.target.value
+                                    laptop_brand_id: event.target.value
                                     }
-                                }));
+                                ));
                             }}
                         />
                 </div>
@@ -295,18 +334,16 @@ function LaptopInfo(props) {
                 <div className='flex-row justify-center'>
                     <Dropdown 
                         dropdownClass={errors.cpu? "dropdown-error dropdown third-width":"dropdown third-width"}
-                        selectValue={userInfoObj.laptop.cpu || 'cpu'}
+                        selectValue={laptopInfoObj.laptop_cpu || 'cpu'}
                         optionValue='cpu'
                         defaultName='CPU'
                         options={cpusOptions}
                         handleFunction={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    cpu: event.target.value
+                                laptop_cpu: event.target.value
                                 }
-                            }));
+                            ));
                         }}
                     />
                     <Input 
@@ -315,15 +352,13 @@ function LaptopInfo(props) {
                         placeholder="14"
                         label="CPU-ს ბირთვი"
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    CpuCore: event.target.value.trim()
+                                laptop_cpu_cores: event.target.value.trim()
                                 }
-                            }))
+                            ))
                         }}
-                        value={userInfoObj.laptop.CpuCore}
+                        value={laptopInfoObj.laptop_cpu_cores}
                         requirements={
                             errors.CpuCore? 
                                 (
@@ -344,15 +379,13 @@ function LaptopInfo(props) {
                         placeholder="365"
                         label="CPU-ს ნაკადი"
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    CpuStream: event.target.value.trim()
-                                    }
-                                }))
+                                laptop_cpu_threads: event.target.value.trim()
+                                }
+                            ))
                         }}
-                        value={userInfoObj.laptop.CpuStream}
+                        value={laptopInfoObj.laptop_cpu_threads}
                         requirements={
                             errors.CpuStream? 
                                 (
@@ -375,15 +408,13 @@ function LaptopInfo(props) {
                         placeholder='16'
                         label='ლეპტოპის RAM (GB)'
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    RAM: event.target.value.trim()
+                                laptop_ram: event.target.value.trim()
                                 }
-                            }))
+                            ))
                         }}
-                        value={userInfoObj.laptop.RAM}
+                        value={laptopInfoObj.laptop_ram}
                         requirements={
                             errors.RAM? 
                                 (
@@ -417,17 +448,15 @@ function LaptopInfo(props) {
                                     className='radio'
                                     type='radio' 
                                     id='SSD'
-                                    name={userInfoObj.laptop.storageType}
+                                    name={laptopInfoObj.laptop_hard_drive_type}
                                     value='SSD'
-                                    checked={userInfoObj.laptop.storageType === 'SSD'}
+                                    checked={laptopInfoObj.laptop_hard_drive_type  === 'SSD'}
                                     onChange={(event) => {
-                                        setUserInfoObj(prev => ({
+                                        setLaptopInfoObj(prev => ({
                                             ...prev,
-                                            laptop: {
-                                                ...prev.laptop,
-                                                storageType: event.target.value
+                                            laptop_hard_drive_type : event.target.value
                                             }
-                                        }))
+                                        ))
                                     }}
                                 />
                                 <label id='SSD' htmforlFor='SSD'>SSD</label>
@@ -435,17 +464,15 @@ function LaptopInfo(props) {
                                     className='radio'
                                     type='radio' 
                                     id='HDD'
-                                    name={userInfoObj.laptop.storageType}
+                                    name={laptopInfoObj.laptop_hard_drive_type}
                                     value='HDD'
-                                    checked={userInfoObj.laptop.storageType === 'HDD'}
+                                    checked={laptopInfoObj.laptop_hard_drive_type === 'HDD'}
                                     onChange={(event) => {
-                                        setUserInfoObj(prev => ({
+                                        setLaptopInfoObj(prev => ({
                                             ...prev,
-                                            laptop: {
-                                                ...prev.laptop,
-                                                storageType: event.target.value
+                                            laptop_hard_drive_type: event.target.value
                                             }
-                                        }))
+                                        ))
                                     }}
                                 />
                                 <label id="HDD" htmforlFor='HDD'>HDD</label>
@@ -461,15 +488,13 @@ function LaptopInfo(props) {
                         type='date'
                         label='შეძენის რიცხვი (არჩევითი)'
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    boughtDate: event.target.value.trim()
+                                laptop_purchase_date: event.target.value.trim()
                                 }
-                            }))
+                            ))
                         }}
-                        value={userInfoObj.laptop.boughtDate}
+                        value={laptopInfoObj.laptop_purchase_date}
                     />
                     <Input 
                         inputClass={errors.price? 'halfway-input input-class input-error' : 'halfway-input input-class'}
@@ -484,15 +509,13 @@ function LaptopInfo(props) {
                             />
                         }
                         onInput={(event) => {
-                            setUserInfoObj((prev) => ({
+                            setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop: {
-                                    ...prev.laptop,
-                                    price: event.target.value.trim()
+                                laptop_price: event.target.value.trim()
                                 }
-                            }))
+                            ))
                         }}
-                        value={userInfoObj.laptop.price}
+                        value={laptopInfoObj.laptop_price}
                         requirements={
                             errors.price? 
                                 (
@@ -528,17 +551,15 @@ function LaptopInfo(props) {
                             className='radio'
                             type='radio' 
                             id='new'
-                            name={userInfoObj.laptop.condition}
+                            name={laptopInfoObj.laptop_state}
                             value='new'
-                            checked={userInfoObj.laptop.condition === 'new'}
+                            checked={laptopInfoObj.laptop_state === 'new'}
                             onChange={(event) => {
-                                    setUserInfoObj(prev => ({
+                                    setLaptopInfoObj(prev => ({
                                         ...prev,
-                                        laptop: {
-                                            ...prev.laptop,
-                                            condition: event.target.value
+                                        laptop_state: event.target.value
                                         }
-                                    }))
+                                    ))
                                 }}
                             />
                         <label id="new" htmforlFor='new'>ახალი</label>
@@ -546,17 +567,15 @@ function LaptopInfo(props) {
                             className='radio'
                             type='radio' 
                             id='used'
-                            name={userInfoObj.laptop.condition}
+                            name={laptopInfoObj.laptop_state}
                             value='used'
-                            checked={userInfoObj.laptop.condition === 'used'}
+                            checked={laptopInfoObj.laptop_state  === 'used'}
                             onChange={(event) => {
-                                    setUserInfoObj(prev => ({
+                                    setLaptopInfoObj(prev => ({
                                         ...prev,
-                                        laptop: {
-                                            ...prev.laptop,
-                                            condition: event.target.value
+                                        laptop_state: event.target.value
                                         }
-                                    }))
+                                    ))
                                 }}
                             />
                         <label id="used" htmforlFor='used'>მეორადი</label>

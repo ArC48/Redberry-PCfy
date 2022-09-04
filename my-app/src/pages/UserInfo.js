@@ -25,7 +25,7 @@ function UserInfo(props) {
 
     const navigate = useNavigate()
 
-
+    
     console.log('userObject: ', userInfoObj);
     
     useEffect(() => {
@@ -49,7 +49,11 @@ function UserInfo(props) {
 
     const teamsOptions = teams.map((singleTeam) => {
         return (
-            <option key={singleTeam.id} id={singleTeam.id}>
+            <option 
+                key={singleTeam.id} 
+                value={singleTeam.id} 
+                id={singleTeam.id}
+            >
                 {singleTeam.name}
             </option>
         );
@@ -58,11 +62,17 @@ function UserInfo(props) {
     
     const positionsOptions = positions.map((singlePos) => {
         const chosenTeam = teams.filter((e) => {
-            return e.name === userInfoObj.team? true:false
+            if(e.id === Number(userInfoObj.team)) return true;
+            return false;
         });
 
         if(chosenTeam.length && chosenTeam[0].id === singlePos.team_id) {
-            return <option key={singlePos.id}>{singlePos.name}</option>
+            return <option 
+                    key={singlePos.id}
+                    value={singlePos.id}
+                    >
+                        {singlePos.name}
+                    </option>
         }
 
         return null;
@@ -72,63 +82,62 @@ function UserInfo(props) {
     const onSubmitClick = () => {
         const errorsObj = {};
 
-        if(!userInfoObj.firstName || !userInfoObj.firstName.trim()) {
-            errorsObj.firstName = 'სახელი არ უნდა იყოს ცარიელი';
+        if(!userInfoObj.name || !userInfoObj.name.trim()) {
+            errorsObj.name = 'სახელი არ უნდა იყოს ცარიელი';
         }
 
-        if(userInfoObj.firstName) {
-            if(userInfoObj.firstName.length < 2) {
-                errorsObj.firstName = 'სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
+        if(userInfoObj.name) {
+            if(userInfoObj.name.length < 2) {
+                errorsObj.name = 'სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
             }
-            if(!langValid(userInfoObj.firstName)) {
-                errorsObj.firstName = 'სახელი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
+            if(!langValid(userInfoObj.name)) {
+                errorsObj.name = 'სახელი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
             }
             // else errorsObj.firstName = ' ';
         }
 
-        if(!userInfoObj.lastName || !userInfoObj.lastName.trim()) {
-            errorsObj.lastName = 'გვარი არ უნდა იყოს ცარიელი';
+        if(!userInfoObj.surname || !userInfoObj.surname.trim()) {
+            errorsObj.surname = 'გვარი არ უნდა იყოს ცარიელი';
         }
 
-        if(userInfoObj.lastName){
-            if(userInfoObj.lastName.length < 2) {
-            errorsObj.lastName = 'გვარი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
+        if(userInfoObj.surname){
+            if(userInfoObj.surname.length < 2) {
+            errorsObj.surname = 'გვარი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
             }
-            if(!langValid(userInfoObj.lastName)) {
-            errorsObj.lastName = 'გვარი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
+            if(!langValid(userInfoObj.surname)) {
+            errorsObj.surname = 'გვარი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
             }
         }
 
-        if(!userInfoObj.team) {
-            errorsObj.team = 'სავალდებულო ველი'
+        if(!userInfoObj.team_id) {
+            errorsObj.team_id = 'სავალდებულო ველი'
         }
 
-        if(!userInfoObj.position) {
-            errorsObj.position = 'სავალდებულო ველი'
+        if(!userInfoObj.position_id) {
+            errorsObj.position_id = 'სავალდებულო ველი'
         }
 
-        if(!userInfoObj.mail) {
-            errorsObj.mail = 'მეილი არ უნდა იყოს ცარიელი'
+        if(!userInfoObj.email) {
+            errorsObj.email = 'მეილი არ უნდა იყოს ცარიელი'
         }
 
-        if(userInfoObj.mail && !mailValid(userInfoObj.mail)) {
-            errorsObj.mail = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით'
+        if(userInfoObj.email && !mailValid(userInfoObj.email)) {
+            errorsObj.email = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით'
         }
 
-        if(!userInfoObj.phone || !String(userInfoObj.phone).trim()) {
-            errorsObj.phone = 'ტელეფონის ნომერი არ უნდა იყოს ცარიელი'
+        if(!userInfoObj.phone_number || !String(userInfoObj.phone_number).trim()) {
+            errorsObj.phone_number = 'ტელეფონის ნომერი არ უნდა იყოს ცარიელი'
         }
 
-        if(userInfoObj.phone) {
-            if(!numberValid(userInfoObj.phone)) {
-                errorsObj.phone = 'არასწორი ფორმატი!!!'
+        if(userInfoObj.phone_number) {
+            if(!numberValid(userInfoObj.phone_number)) {
+                errorsObj.phone_number = 'არასწორი ფორმატი!!!'
             }
         }
 
         if(Object.keys(errorsObj).length) {
             return setErrors(errorsObj);
         }
-
         return navigate('../form/laptopInfo')
     }
 
@@ -153,22 +162,22 @@ function UserInfo(props) {
             <div className='form-container'>
                 <div className='flex-row justify-center'>
                     <Input 
-                        inputClass={errors.firstName? 'halfway-input input-class input-error' : 'halfway-input input-class'}
-                        labelClass={errors.firstName? 'error-class label' : 'label'}
+                        inputClass={errors.name? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        labelClass={errors.name? 'error-class label' : 'label'}
                         label='სახელი'
                         placeholder='გრიშა'
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                firstName: event.target.value.trim()
+                                name: event.target.value.trim()
                             }))
                         }}
-                        value={userInfoObj.firstName}
+                        value={userInfoObj.name}
                         requirements={
-                                    errors.firstName? 
+                                    errors.name? 
                                         (
                                             <p className='error-class'>
-                                                {errors.firstName}
+                                                {errors.name}
                                             </p> 
                                         ):
                                         (
@@ -179,22 +188,22 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
-                        inputClass={errors.lastName? 'halfway-input input-class input-error' : 'halfway-input input-class'}
-                        labelClass={errors.lastName? 'error-class label' : 'label'}
+                        inputClass={errors.surname? 'halfway-input input-class input-error' : 'halfway-input input-class'}
+                        labelClass={errors.surname? 'error-class label' : 'label'}
                         label='გვარი'
                         placeholder='ბაგრატიონი'
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                lastName: event.target.value.trim()
+                                surname: event.target.value.trim()
                             }))
                         }}
-                        value={userInfoObj.lastName}
+                        value={userInfoObj.surname}
                         requirements={
-                                errors.lastName? 
+                                errors.surname? 
                                     (
                                         <p className='error-class'>
-                                            {errors.lastName}
+                                            {errors.surname}
                                         </p> 
                                     ):
                                     (
@@ -207,29 +216,29 @@ function UserInfo(props) {
                 </div>
                 <div className='form-selectors'>
                     <Dropdown 
-                        selectValue={userInfoObj.team || 'team'}
-                        optionValue='team'
+                        selectValue={userInfoObj.team_id || 'team_id'}
+                        optionValue='team_id'
                         defaultName='თიმი'
                         options={teamsOptions}
-                        dropdownClass={errors.team? "full-width dropdown-error dropdown":"full-width dropdown"}
+                        dropdownClass={errors.team_id? "full-width dropdown-error dropdown":"full-width dropdown"}
                         handleFunction={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                team: event.target.value,
-                                position: null
+                                team_id: event.target.value,
+                                position_id: null
                             }));
                         }}
                     />
                     <Dropdown 
-                        selectValue={userInfoObj.position || 'position'}
-                        optionValue='position'
+                        selectValue={userInfoObj.position_id || 'position_id'}
+                        optionValue='position_id'
                         defaultName='პოზიცია'
                         options={positionsOptions}
-                        dropdownClass={errors.position? "full-width dropdown-error dropdown":"full-width dropdown"}
+                        dropdownClass={errors.position_id? "full-width dropdown-error dropdown":"full-width dropdown"}
                         handleFunction={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                position: event.target.value
+                                position_id: event.target.value
                             }));
                             console.log(event.target.value)
                         }}
@@ -237,8 +246,8 @@ function UserInfo(props) {
                 </div>
                 <div className='flex-column'>
                     <Input 
-                        inputClass={errors.mail? 'full-width input-class input-error' : 'full-width input-class'}
-                        labelClass={errors.mail? 'error-class label' : 'label'}
+                        inputClass={errors.email? 'full-width input-class input-error' : 'full-width input-class'}
+                        labelClass={errors.email? 'error-class label' : 'label'}
                         type='email'
                         name='email'
                         label='მეილი'
@@ -246,15 +255,15 @@ function UserInfo(props) {
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                mail: event.target.value
+                                email: event.target.value
                             }))
                         }}
-                        value={userInfoObj.mail}
+                        value={userInfoObj.email}
                         requirements={
-                                    errors.mail? 
+                                    errors.email? 
                                         (
                                             <p className='error-class'>
-                                                {errors.mail}
+                                                {errors.email}
                                             </p> 
                                         ):
                                         (
@@ -265,23 +274,22 @@ function UserInfo(props) {
                                     }
                     /> 
                     <Input 
-                        inputClass={errors.phone? 'full-width input-class input-error' : 'full-width input-class'}
-                        labelClass={errors.phone? 'error-class label' : 'label'}
+                        inputClass={errors.phone_number? 'full-width input-class input-error' : 'full-width input-class'}
+                        labelClass={errors.phone_number? 'error-class label' : 'label'}
                         label='ტელეფონის ნომერი'
                         placeholder='+995 598 00 07 01'
                         onInput={(event) => {
                             setUserInfoObj((prev) => ({
                                 ...prev,
-                                phone: event.target.value,
-                                laptop: {}
+                                phone_number: event.target.value
                             }))
                         }}
-                        value={userInfoObj.phone || '+995'}
+                        value={userInfoObj.phone_number || '+995'}
                         requirements={
-                                    errors.phone? 
+                                    errors.phone_number? 
                                         (
                                             <p className='error-class'>
-                                                {errors.phone}
+                                                {errors.phone_number}
                                             </p> 
                                         ):
                                         (

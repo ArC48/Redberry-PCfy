@@ -1,0 +1,8 @@
+{
+    "editor.formatOnSave": true,
+    "reactSnippets.settings.prettierEnabled": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.semi": false,
+    "prettier.singleAttributePerLine": true,
+    "prettier.singleQuote": true
+}

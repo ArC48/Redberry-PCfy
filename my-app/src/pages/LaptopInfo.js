@@ -12,6 +12,7 @@ import { useDropzone } from 'react-dropzone'
 import mark from '../assets/mark.png'
 import lari from '../assets/lari.png'
 import warning from '../assets/warning.png'
+import { useNavigate } from 'react-router-dom'
 
 
 function LaptopInfo(props) {
@@ -21,14 +22,12 @@ function LaptopInfo(props) {
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([])
-    // const [storageType, setStorageType] = useState('')
+
+    const navigate = useNavigate();
     
     console.log(userInfoObj)
     
      // test code
-    // const [specsInfo, setSpecsInfo] = useState({
-    // image: [],
-    // });
 
   const { getRootProps, getInputProps } = useDropzone({
       accept: 'image/*',
@@ -51,7 +50,7 @@ function LaptopInfo(props) {
         key={file.name}
         src={file.preview}
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        alt="laptop"
+        alt="laptop_pic"
         />
         )): '';
 
@@ -172,11 +171,12 @@ function LaptopInfo(props) {
 
   return (
     <div>
-        <div>
+        <div
+        >
             <Image 
-            className='arrow-back'
-            img={arrowBack}
-            alt='back'
+                className='arrow-back'
+                img={arrowBack}
+                alt='back'
             />
         </div>
         <div className='center-align'>
@@ -565,6 +565,9 @@ function LaptopInfo(props) {
                 <div className='flex-row space-between padding-around'>
                     <button
                         id='back-btn'
+                        onClick={() => {
+                            navigate('../form/userInfo')
+                        }}
                     >
                         უკან
                     </button>

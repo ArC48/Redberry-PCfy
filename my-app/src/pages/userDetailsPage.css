@@ -1,0 +1,27 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.laptop-image img {
+    width: 50%;
+    height: 80%;
+    background-color: aquamarine;
+}
+
+.key {
+    font-size: 22px;
+    color: #2E2E2E;
+    font-weight: 500;
+
+}
+
+.value {
+    font-size: 22px;
+    color: #797979;
+    font-weight: 400;
+}

@@ -14,14 +14,17 @@ import {reqWithoutBody} from '../services/ApiService'
 import {mailValid} from '../services/MailValidation'
 import {numberValid} from '../services/NumberValidation'
 import { langValid } from '../services/LanguageValidation'
+import { useNavigate, Link } from 'react-router-dom'
 
 function UserInfo(props) {
     const [teams, setTeams] = useState([]);
     const [positions, setPositions] = useState([]);
     const [userInfoObj, setUserInfoObj] = useState(
         JSON.parse(localStorage.getItem('userInfo')) || {});
-        console.log(userInfoObj);
     const [errors, setErrors] = useState([]);
+
+    const navigate = useNavigate()
+
 
     console.log('userObject: ', userInfoObj);
     
@@ -122,7 +125,11 @@ function UserInfo(props) {
             }
         }
 
-        setErrors(errorsObj)
+        if(Object.keys(errorsObj).length) {
+            return setErrors(errorsObj);
+        }
+
+        return navigate('../form/laptopInfo')
     }
 
 
@@ -130,9 +137,9 @@ function UserInfo(props) {
       <div>
         <div>
             <Image 
-            className='arrow-back'
-            img={arrowBack}
-            alt='back'
+                className='arrow-back'
+                img={arrowBack}
+                alt='back'
             />
         </div>
         <div className='center-align'>

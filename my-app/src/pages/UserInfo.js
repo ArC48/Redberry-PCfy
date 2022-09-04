@@ -62,7 +62,7 @@ function UserInfo(props) {
     
     const positionsOptions = positions.map((singlePos) => {
         const chosenTeam = teams.filter((e) => {
-            if(e.id === Number(userInfoObj.team)) return true;
+            if(e.id === Number(userInfoObj.team_id)) return true;
             return false;
         });
 
@@ -240,7 +240,6 @@ function UserInfo(props) {
                                 ...prev,
                                 position_id: event.target.value
                             }));
-                            console.log(event.target.value)
                         }}
                     />
                 </div>

@@ -9,11 +9,13 @@ export const reqWithoutBody = async (url, method) => {
     return data;
 }
 
-export const reqWithBody = async (url, method) => {
+export const reqWithBody = async (url, method, token, id) => {
+    let link = id?`${url}/${id}?token=${token}`:`${url}?token=${token}`;
+
     try {
         const res = await Axios({
             method,
-            url:`https://pcfy.redberryinternship.ge/api/${url}?token=3a13437ec4ff8482bbb0f2d70fb4065a`
+            url:`https://pcfy.redberryinternship.ge/api/${link}`
         });
 
         const data = await res.data;
@@ -21,4 +23,14 @@ export const reqWithBody = async (url, method) => {
     } catch (err) {
         console.warn(err);
     }
+}
+
+export const postRequest = (body) => {
+    Axios.post('https://pcfy.redberryinternship.ge/api/laptop/create', body)
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 }

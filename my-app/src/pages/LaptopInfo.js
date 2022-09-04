@@ -5,7 +5,7 @@ import arrowBack from '../assets/arrowBack.svg'
 import redberryLogo from '../assets/redberryLogo.svg'
 import Input from '../components/Input'
 import Dropdown from '../components/Dropdown'
-import { reqWithoutBody } from '../services/ApiService'
+import { postRequest, reqWithoutBody } from '../services/ApiService'
 import Button from '../components/Button'
 import { laptopNameValidaton } from '../services/LaptopNameValidation'
 import { useDropzone } from 'react-dropzone'
@@ -35,17 +35,23 @@ function LaptopInfo(props) {
     });
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([]);
+    const formData = new FormData();
 
     const navigate = useNavigate();
     
-    console.log(laptopInfoObj)
-    
      // test code
+     console.log(laptopInfoObj)
 
   const { getRootProps, getInputProps } = useDropzone({
       accept: 'image/*',
       onDrop: (acceptedFiles) => {
+        const fr = new FileReader();
+        fr.readAsDataURL(acceptedFiles[0]);
+
+        fr.addEventListener('load', () => {
+            formData.append('laptop_image', acceptedFiles)
+        })
           setLaptopInfoObj((prev) => ({
               ...prev,
                 laptop_image: acceptedFiles.map((file) =>
@@ -168,14 +174,14 @@ function LaptopInfo(props) {
             const userFinalInfoObject = {
                 name: userInfoObj.name,
                 surname: userInfoObj.surname,
-                team_id: Number(userInfoObj.team),
-                position_id: Number(userInfoObj.position),
-                phone_number: `+${userInfoObj.number}`,
-                email: userInfoObj.mail,
-                token: '7bbb011efcb959c1a848307bcc39a10e',
+                team_id: Number(userInfoObj.team_id),
+                position_id: Number(userInfoObj.position_id),
+                phone_number: `${userInfoObj.phone_number}`,
+                email: userInfoObj.email,
+                token: '409dc6b87fa5f118fcf81cfe4538aca9',
                 laptop_name: laptopInfoObj.laptop_name,
                 laptop_brand_id: Number(laptopInfoObj.laptop_brand_id),
-                laptop_image: laptopInfoObj.laptop_image,
+                // laptop_image: laptopInfoObj.laptop_image,
                 laptop_cpu: laptopInfoObj.laptop_cpu,
                 laptop_cpu_cores: Number(laptopInfoObj.laptop_cpu_cores),
                 laptop_cpu_threads: Number(laptopInfoObj.laptop_cpu_threads),
@@ -185,7 +191,15 @@ function LaptopInfo(props) {
                 laptop_purchase_date: laptopInfoObj.laptop_purchase_date,
                 laptop_price: laptopInfoObj.laptop_price,
           };
+
+          for(let i in userFinalInfoObject) {
+            formData.append(i, userFinalInfoObject[i])
+          }
+          console.log(userFinalInfoObject, formData)
+          postRequest(formData)
+
         }
+
 
 
     //   for (let key in userFinalInfoObject) {
@@ -198,7 +212,7 @@ function LaptopInfo(props) {
 
     const brandsOptions = brands.map((singleBrand) => {
         return (
-            <option key={singleBrand.id} id={singleBrand.id}>
+            <option key={singleBrand.id} value={singleBrand.id} id={singleBrand.id}>
                 {singleBrand.name}
             </option>
         );

@@ -5,6 +5,7 @@ import LaptopInfo from './pages/LaptopInfo'
 import UserDetailsPage from "./pages/UserDetailsPage";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import LaptopsList from "./pages/LaptopsList";
+import Modal from "./components/Modal";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="form/laptopInfo" element={<LaptopInfo />}></Route>
           <Route path="/users" element={<LaptopsList />}></Route>
           <Route path="/users/:id" element={<UserDetailsPage />}></Route>
+          <Route path="/success" element={<Modal />}></Route>
       </Routes>
     </Router>
   );

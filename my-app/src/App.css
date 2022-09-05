@@ -1,0 +1,8 @@
+@font-face {
+  font-family: helveticaNeue;
+  src: url(../src/assets/HelveticaNeue.ttc) format("trueType");
+}
+
+* {
+  font-family: helveticaNeue;
+}

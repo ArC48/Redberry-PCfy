@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Modal from '../components/Modal'
 
 
-function LaptopInfo(props) {
+function LaptopInfo() {
 
     const [laptopInfoObj, setLaptopInfoObj] = useState(
         JSON.parse(localStorage.getItem('laptopInfo')) || 
@@ -37,7 +37,7 @@ function LaptopInfo(props) {
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
+    const [laptopImgPreview, setLaptopImgPreview] = useState('');
 
     const formData = new FormData();
 
@@ -55,17 +55,17 @@ function LaptopInfo(props) {
       reader.addEventListener('load', () => {
         setLaptopInfoObj((prev) => ({
           ...prev,
-          laptop_image_base64: reader.result,
           laptop_image: acceptedFiles[0],
         }));
+        setLaptopImgPreview({laptop_image_base64: reader.result});
       });
     },
   });
 
-   const receivedImage = laptopInfoObj.laptop_image_base64? (
+   const receivedImage = laptopInfoObj.laptop_image? (
         <img
         // key={file.name}
-        src={laptopInfoObj.laptop_image_base64}
+        src={laptopImgPreview.laptop_image_base64}
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         alt="laptop_pic"
         />
@@ -76,9 +76,9 @@ function LaptopInfo(props) {
     setLaptopInfoObj((prev) => ({
               ...prev,
                 laptop_image: '',
-                laptop_image_base64: ''
             }
         ));
+    setLaptopImgPreview({laptop_image_base64: ''})
   };
 
     /////////////////////////////
@@ -195,8 +195,9 @@ function LaptopInfo(props) {
           for(let i in userFinalInfoObject) {
             formData.append(i, userFinalInfoObject[i])
           }
-          setOpenModal(true);
-        //   postRequest(formData)
+            localStorage.clear();
+            navigate('../success')
+            postRequest(formData)
         }
         
     }
@@ -245,7 +246,7 @@ function LaptopInfo(props) {
                         'img-container margin-bottom normal-img-container'
                     }
                 >
-                    {laptopInfoObj.laptop_image_base64.length > 0 ? (
+                    {laptopImgPreview.laptop_image_base64 && laptopImgPreview.laptop_image_base64.length > 0 ? (
                 <div className="uploadedImg">
                     {receivedImage}
                     <div className='space-between'>
@@ -298,7 +299,7 @@ function LaptopInfo(props) {
                         onInput={(event) => {
                             setLaptopInfoObj((prev) => ({
                                 ...prev,
-                                laptop_name: event.target.value.trim()
+                                laptop_name: event.target.value
                                 } 
                             ))
                         }}
@@ -403,7 +404,7 @@ function LaptopInfo(props) {
                             }
                     />
                 </div>
-                <div className='flex-row'>
+                <div id='flex-row-id'>
                     <Input 
                         className='third'
                         inputClass={errors.RAM? 'flex-start halfway-input input-class input-error' : 'flex-start halfway-input input-class'}
@@ -432,7 +433,7 @@ function LaptopInfo(props) {
                                 )
                             }
                         />
-                        <div class="flex-column">
+                        <div class="flex-column" id='storage-margins'>
                             <div class="flex-row">
                                 <p
                                     className={errors.storageType? 'error-text margin-right':'basic-text margin-right'}
@@ -440,6 +441,7 @@ function LaptopInfo(props) {
                                 მეხსიერების ტიპი</p>
                                 {errors.storageType && 
                                     <Image 
+                                        className='icon-margin'
                                         img={warning}
                                         height='20px'
                                         width='20px'
@@ -485,7 +487,7 @@ function LaptopInfo(props) {
                 <hr className='hr'/>
                 <div className='flex-row'>
                     <Input 
-                        className='halfway'
+                        className='halfway date-margin-bottom'
                         inputClass=' input-class'
                         labelClass="label"
                         placeholder='დდ / თთ / წწწწ'
@@ -545,6 +547,7 @@ function LaptopInfo(props) {
                         </p>
                             {errors.condition && 
                                         <Image 
+                                            className="icon-margin"
                                             img={warning}
                                             height='20px'
                                             width='20px'
@@ -600,7 +603,6 @@ function LaptopInfo(props) {
                         text='დამახსოვრება'
                         handleFunction={onSubmitClick}
                     />
-                    {openModal && <Modal />}
                 </div>
             </div>
             <div>

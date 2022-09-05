@@ -1,7 +1,13 @@
+@font-face {
+  font-family: helveticaNeue;
+  src: url(../src/assets/HelveticaNeue.ttc) format("trueType");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: helveticaNeue;
 }
 
 html {
@@ -15,3 +21,5 @@ body {
   min-width: 100%;
   min-height: 100%;
 }
+
+

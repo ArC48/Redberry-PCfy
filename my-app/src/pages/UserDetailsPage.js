@@ -33,7 +33,6 @@ function UserDetailsPage() {
             state: '',
         },
     });
-    console.log(userInfo)
 
     const [team, setTeam] = useState('');
     const [position, setPosition] = useState('');

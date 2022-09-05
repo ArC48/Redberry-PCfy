@@ -21,10 +21,10 @@ function Landing() {
       </div>
       <div className="center-align">
         <Link to='form/userInfo'>
-          <Button className='button' text='ჩანაწერის დამატება'/>
+          <Button className='button create-record' text='ჩანაწერის დამატება'/>
         </Link>
         <Link to='/users'>
-          <Button className='list-button button' text='ჩანაწერების სია'/>
+          <Button className='list-button button list-link' text='ჩანაწერების სია'/>
         </Link>
       </div>
     </div>

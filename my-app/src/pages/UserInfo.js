@@ -131,7 +131,7 @@ function UserInfo(props) {
 
         if(userInfoObj.phone_number) {
             if(!numberValid(userInfoObj.phone_number)) {
-                errorsObj.phone_number = 'არასწორი ფორმატი!!!'
+                errorsObj.phone_number = 'არასწორი ფორმატი, მაგალითი: +995558123456'
             }
         }
 

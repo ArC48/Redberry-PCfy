@@ -44,39 +44,36 @@ function LaptopInfo(props) {
      console.log(laptopInfoObj)
 
   const { getRootProps, getInputProps } = useDropzone({
-      accept: 'image/*',
-      onDrop: (acceptedFiles) => {
-        const fr = new FileReader();
-        fr.readAsDataURL(acceptedFiles[0]);
+    accept: 'image/*',
+    onDrop: (acceptedFiles) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(acceptedFiles[0]);
 
-        fr.addEventListener('load', () => {
-            formData.append('laptop_image', acceptedFiles)
-        })
-          setLaptopInfoObj((prev) => ({
-              ...prev,
-                laptop_image: acceptedFiles.map((file) =>
-                Object.assign(file, { preview: URL.createObjectURL(file) })
-              ),
-              }
-            ));
-        },
-    });
+      reader.addEventListener('load', () => {
+        setLaptopInfoObj((prev) => ({
+          ...prev,
+          laptop_image_base64: reader.result,
+          laptop_image: acceptedFiles[0],
+        }));
+      });
+    },
+  });
 
-   const receivedImage = laptopInfoObj.laptop_image? 
-    laptopInfoObj.laptop_image.map((file) => (
+   const receivedImage = laptopInfoObj.laptop_image_base64? (
         <img
-        key={file.name}
-        src={file.preview}
+        // key={file.name}
+        src={laptopInfoObj.laptop_image_base64}
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         alt="laptop_pic"
         />
-        )): '';
+        ): '';
 
 
    const handleCancel = () => {
     setLaptopInfoObj((prev) => ({
               ...prev,
-                image: []
+                laptop_image: '',
+                laptop_image_base64: ''
             }
         ));
   };
@@ -162,7 +159,7 @@ function LaptopInfo(props) {
             errorsObj.condition = "სავალდებულო ველი"
         }
 
-        if(!laptopInfoObj.laptop_image.length) {
+        if(laptopInfoObj.laptop_image.size === undefined) {
             errorsObj.image = "სავალდებულო ველი"
         }
 
@@ -181,7 +178,7 @@ function LaptopInfo(props) {
                 token: '409dc6b87fa5f118fcf81cfe4538aca9',
                 laptop_name: laptopInfoObj.laptop_name,
                 laptop_brand_id: Number(laptopInfoObj.laptop_brand_id),
-                // laptop_image: laptopInfoObj.laptop_image,
+                laptop_image: laptopInfoObj.laptop_image,
                 laptop_cpu: laptopInfoObj.laptop_cpu,
                 laptop_cpu_cores: Number(laptopInfoObj.laptop_cpu_cores),
                 laptop_cpu_threads: Number(laptopInfoObj.laptop_cpu_threads),
@@ -194,19 +191,12 @@ function LaptopInfo(props) {
 
           for(let i in userFinalInfoObject) {
             formData.append(i, userFinalInfoObject[i])
+            // console.log(i, userFinalInfoObject[i])
           }
-          console.log(userFinalInfoObject, formData)
+        //   console.log(userFinalInfoObject, formData)
           postRequest(formData)
 
         }
-
-
-
-    //   for (let key in userFinalInfoObject) {
-    //     formData.append(key, userFinalInfoObject[key]);
-    //   }
-
-    //   postMethod(userFinalInfoObject);
         
     }
 
@@ -253,7 +243,7 @@ function LaptopInfo(props) {
                         'img-container margin-bottom normal-img-container'
                     }
                 >
-                    {laptopInfoObj.laptop_image.length > 0 ? (
+                    {laptopInfoObj.laptop_image_base64.length > 0 ? (
                 <div className="uploadedImg">
                     {receivedImage}
                     <div className='space-between'>
@@ -263,12 +253,7 @@ function LaptopInfo(props) {
                                 img={mark}
                             />
                             <p className='margin-top'>
-                            {laptopInfoObj.laptop_image[0].path.length > 50? 
-                            laptopInfoObj.laptop_image[0].path.slice(0,45) + '...' 
-                            + laptopInfoObj.laptop_image[0].path.slice(-5)
-                            :
-                            laptopInfoObj.laptop_image[0].path
-                            }
+                            laptop_image
                             </p>
                         </div>
                         <button 

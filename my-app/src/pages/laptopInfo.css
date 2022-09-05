@@ -246,3 +246,144 @@
 #storage-margins {
     margin: 20px;
 }
+
+.responsive-camera {
+    display: none;
+}
+
+#dropUploadText-responsive {
+    display: none;
+}
+
+@media only screen and (max-width: 391px) {
+    .logo {
+        display: none;
+    }
+
+    #userInfoTitle {
+        display: none;
+    }
+
+    #laptopInfoTitle {
+        margin-left: 3.5rem;
+        font-weight: 900;
+        margin-top: -2.6rem;
+    }
+
+    .uploadLink {
+        display: none;
+    }
+    
+    .responsive-camera {
+        display: inline-block;
+    }
+
+    #dropUploadText {
+        display: none;
+    }
+
+    #dropUploadText-responsive {
+        display: inline-block;
+        color: #4386A9;
+        font-weight: 800;
+        width: 10rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .img-container {
+        width: 90vw;
+        height: 12rem;
+    }
+
+    .laptop-form-container {
+        margin-top: 20px;
+        width: 0;
+    }
+
+    .stretch-row {
+        flex-direction: column;
+        width: 95vw;
+        margin-right: 0 !important;
+    }
+    .stretch-row > .input-container {
+        width: 21rem !important;
+        margin-left: -13px;
+    }
+    .flex-row > .input-container > input {
+        width: 20rem !important;
+    }
+
+    .dropdown-container-class {
+        width: 22rem;
+        margin-left: -1rem;
+    }
+
+    .flex-row {
+        width: 100vw;
+    }
+    .third-width {
+        width: 22rem;
+    }
+    #flex-row-id {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+        /* margin-left: 3rem; */
+        width: 100vw;
+    }
+    #storage-margins {
+        margin: 0;
+    }
+
+    #radio-responsive, #radio-responsive div {
+        display: flex;
+        flex-direction: row !important;
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+
+    #radio-responsive {
+        margin-bottom: 3rem !important;
+        width: 10vw !important;
+    }
+    #storage-p {
+        margin: 2rem 27px;
+    }
+
+    .hr {
+        display: none;
+    }
+
+    .left-positioned {
+        width: 0;
+        margin-left: -24rem;
+    }
+
+    .padding-around {
+        padding: 0;
+    }
+
+    #condition-responsive {
+        display: flex;
+        flex-direction: row !important;
+        margin-right: 30px;
+        margin-left: 30px;
+        width: 18rem;
+        margin-bottom: 5rem;
+    }
+
+    #conditionP {
+        margin-left: 20px;
+    }
+
+    .icon-margin {
+        display: none;
+    }
+
+    #laptop-btns-responsive {
+        display: flex;
+        flex-direction: row !important;
+        width: 90vw !important;
+    }
+}

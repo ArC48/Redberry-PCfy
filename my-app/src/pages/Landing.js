@@ -4,6 +4,7 @@ import Text from "../assets/redberry-text.svg"
 import './landing.css'
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import mobilelandingpic from '../assets/mobilelandingpic.svg'
 
 function Landing() {
   return (
@@ -17,7 +18,13 @@ function Landing() {
         <Image 
           className="image-class" 
           img={landingPic} 
-          alt="redberry-workplace" />
+          alt="redberry-workplace" 
+        />
+        <Image 
+          className="responsive-pic"
+          img={mobilelandingpic}
+          alt="redberry-workplace"
+        />
       </div>
       <div className="center-align">
         <Link to='form/userInfo'>

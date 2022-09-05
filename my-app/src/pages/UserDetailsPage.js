@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './userDetailsPage.css'
 import Image from '../components/Image'
 import arrowBack from '../assets/arrowBack.svg'
-import landingPic from '../assets/landingPic.png'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { reqWithBody, reqWithoutBody } from '../services/ApiService'
 
 function UserDetailsPage() {
@@ -51,6 +50,7 @@ function UserDetailsPage() {
     };
 
     getUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //get user team, position and laptop brand info by their id's

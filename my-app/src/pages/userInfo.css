@@ -84,3 +84,59 @@ html {
 .name-input {
     width: 36rem;
 }
+
+@media only screen and (max-width: 391px) {
+    #go-back {
+        height: 20px;
+    }
+    .arrow-back img {
+        margin-left: -4rem;
+        margin-top: -1.6rem;
+        display: inline-block;
+    }
+    #path-laptop {
+        display: none !important;
+    }
+
+    #path-user {
+        /* margin-top: -1rem; */
+        margin-left: 1rem;
+        font-weight: 900;
+    }
+
+    #underline {
+        display: none;
+    }
+
+    /* .form-container {
+    background: #ffffff;
+    height: 100%;
+    margin-top: 50px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    } */
+
+
+    .flex-row {
+        flex-direction: column !important;
+    }
+
+    .flex-row > .input-container {
+        width: 21rem !important;
+    }
+    .flex-row > .input-container > input {
+        width: 20rem !important;
+    }
+
+    * {
+        /* border: 1px solid red; */
+    }
+    .form-container {
+        padding: 0 0;
+    }
+
+    .full-width {
+        width: 20.6rem !important;
+    }
+}

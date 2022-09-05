@@ -13,7 +13,7 @@ import mark from '../assets/mark.png'
 import lari from '../assets/lari.png'
 import warning from '../assets/warning.png'
 import { Link, useNavigate } from 'react-router-dom'
-import Modal from '../components/Modal'
+import camera from '../assets/camera.png'
 
 
 function LaptopInfo() {
@@ -231,9 +231,9 @@ function LaptopInfo() {
         </div>
         <div className='center-align'>
             <div className='routes'>
-                    <p className='route-name'>თანამშრომლის ინფო</p>
+                    <p className='route-name' id='userInfoTitle'>თანამშრომლის ინფო</p>
                 <div className='center-align'>
-                <p className='route-name'>ლეპტოპის მახასიათებლები</p>
+                <p className='route-name' id='laptopInfoTitle'>ლეპტოპის მახასიათებლები</p>
                     <div id='underline' />
                 </div>
             </div>
@@ -268,6 +268,12 @@ function LaptopInfo() {
                 </div>
                 ) : (
                 <div class="upload-img-container" {...getRootProps()}>
+                    <Image 
+                        className="responsive-camera"
+                        img={camera}
+                        height="60px"
+                        width="60px"
+                    />
                     <p 
                     className={errors.image?
                     'error-text' : 'normal-text'
@@ -275,6 +281,9 @@ function LaptopInfo() {
                     id="dropUploadText"
                     >
                         ჩააგდე ან ატვირთე ლეპტოპის ფოტო
+                    </p>
+                    <p id='dropUploadText-responsive'>
+                        ლეპტოპის ფოტოს ატვირთვა
                     </p>
                     <Button
                         className="uploadLink button"
@@ -433,10 +442,11 @@ function LaptopInfo() {
                                 )
                             }
                         />
-                        <div class="flex-column" id='storage-margins'>
-                            <div class="flex-row">
+                        <div className="flex-column" id='storage-margins'>
+                            <div className="flex-row">
                                 <p
                                     className={errors.storageType? 'error-text margin-right':'basic-text margin-right'}
+                                    id="storage-p"
                                 >
                                 მეხსიერების ტიპი</p>
                                 {errors.storageType && 
@@ -448,7 +458,8 @@ function LaptopInfo() {
                                     />
                                 }
                             </div>
-                            <div className='flex-row'>
+                            <div className='flex-row' id='radio-responsive'>
+                                <div>
                                 <input 
                                     className='radio'
                                     type='radio' 
@@ -465,6 +476,8 @@ function LaptopInfo() {
                                     }}
                                 />
                                 <label id='SSD' htmforlFor='SSD'>SSD</label>
+                                </div>
+                                <div>
                                 <input 
                                     className='radio'
                                     type='radio' 
@@ -481,6 +494,7 @@ function LaptopInfo() {
                                     }}
                                 />
                                 <label id="HDD" htmforlFor='HDD'>HDD</label>
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -542,6 +556,7 @@ function LaptopInfo() {
                     <div class="flex-row">
                         <p
                             className={errors.condition? 'error-text margin-right':'basic-text margin-right'}
+                            id="conditionP"
                         >
                             ლეპტოპის მდგომარეობა
                         </p>
@@ -554,7 +569,8 @@ function LaptopInfo() {
                                         />
                                     }
                     </div>
-                    <div className='flex-row'>
+                    <div className='flex-row' id='condition-responsive'>
+                        <div>
                         <input 
                             className='radio'
                             type='radio' 
@@ -571,6 +587,8 @@ function LaptopInfo() {
                                 }}
                             />
                         <label id="new" htmforlFor='new'>ახალი</label>
+                        </div>
+                        <div>
                         <input 
                             className='radio'
                             type='radio' 
@@ -587,9 +605,10 @@ function LaptopInfo() {
                                 }}
                             />
                         <label id="used" htmforlFor='used'>მეორადი</label>
+                        </div>
                     </div>
                 </div>
-                <div className='flex-row space-between padding-around'>
+                <div className='flex-row space-between padding-around' id='laptop-btns-responsive'>
                     <button
                         id='back-btn'
                         onClick={() => {

@@ -144,7 +144,7 @@ function UserInfo(props) {
 
   return (
       <div>
-        <div>
+        <div id='go-back'>
             <Link to="/">
                 <Image 
                     className='arrow-back'
@@ -156,10 +156,10 @@ function UserInfo(props) {
         <div className='center-align'>
             <div className='routes'>
                 <div className='center-align'>
-                    <p className='route-name'>თანამშრომლის ინფო</p>
+                    <p className='route-name' id='path-user'>თანამშრომლის ინფო</p>
                     <div id='underline' />
                 </div>
-                <p className='route-name'>ლეპტოპის მახასიათებლები</p>
+                <p className='route-name' id='path-laptop'>ლეპტოპის მახასიათებლები</p>
             </div>
             <div className='form-container'>
                 <div className='flex-row justify-center name-surname-inputs'>

@@ -6,13 +6,13 @@ const LaptopCard = (props) => {
   const { laptop, user, id } = props;
 
   return (
-    <div className="laptopCard">
+    <div className="laptop-card">
       <img
         src={`https://pcfy.redberryinternship.ge/${laptop.image}`}
         alt="laptop"
-        className="laptopImg"
+        className="laptop-img"
       />
-      <div className="laptopInfo">
+      <div className="laptop-info">
         <div>
           <p className="cardP">
             {user.name} {user.surname}

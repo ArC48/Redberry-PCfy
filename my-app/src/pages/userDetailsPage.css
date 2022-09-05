@@ -8,28 +8,29 @@
 }
 
 #userInformation {
-  margin: 30px auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
+    margin: 30px auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
 
 #userInfoTable {
-  width: 500px;
+    width: 500px;
 }
 
 .laptopInfoTable {
-  width: 400px;
+    width: 400px;
 }
 
 #additionalInfo {
-  width: 1050px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: auto;
+    /* width: 1050px; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: auto;
 }
 
 #userInfoTable tr td,
@@ -53,4 +54,48 @@ hr {
   justify-content: center;
   align-items: flex-start;
   gap: 250px;
+}
+
+@media only screen and (max-width: 391px) {
+    #laptopInfo-header {
+        text-align: center;
+        font-size: 22px;
+        margin-top: -40px;
+        margin-bottom: 60px;
+    }
+
+    #laptopImg {
+        width: 100vw;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    #userInformation {
+        margin: 30px auto;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:space-between;
+        gap: 50px;
+    }
+    #laptopInfo {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+    }    
+    #userInfoTable {
+        width: 100vw;
+    }
+
+    .laptopInfoTable {
+        width: 100vw;
+    }
+
+    hr {
+        width: 100vw;
+        margin: 30px auto;
+    }
 }

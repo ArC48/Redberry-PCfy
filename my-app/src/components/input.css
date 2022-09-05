@@ -78,3 +78,15 @@
     top: 56px;
     right: 40px;
 }
+
+@media only screen and (max-width: 391px) {
+    .input-container {
+        margin-bottom: 0;
+    }
+
+    .input-class {
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+    
+}

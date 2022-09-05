@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 // styles
 import './userInfo.css'
 // assets
@@ -14,20 +15,20 @@ import {reqWithoutBody} from '../services/ApiService'
 import {mailValid} from '../services/MailValidation'
 import {numberValid} from '../services/NumberValidation'
 import { langValid } from '../services/LanguageValidation'
-import { useNavigate, Link } from 'react-router-dom'
 
-function UserInfo(props) {
-    const [teams, setTeams] = useState([]);
-    const [positions, setPositions] = useState([]);
+function UserInfo() {
     const [userInfoObj, setUserInfoObj] = useState(
         JSON.parse(localStorage.getItem('userInfo')) || {});
+
     const [errors, setErrors] = useState([]);
 
-    const navigate = useNavigate()
-
+    //dropdown options for user team & positions data
+    const [teams, setTeams] = useState([]);
+    const [positions, setPositions] = useState([]);
+        
+    const navigate = useNavigate();
     
-    console.log('userObject: ', userInfoObj);
-    
+    //get teams & positions data
     useEffect(() => {
         const getTeamsData = async () => {
             const teamsList = await reqWithoutBody('teams','GET');
@@ -43,10 +44,12 @@ function UserInfo(props) {
         getPositionsData();
     }, []);
 
+    //set user information to localStorage on a state change
     useEffect(() => {
         localStorage.setItem('userInfo', JSON.stringify(userInfoObj));
     }, [userInfoObj]);
 
+    // get teams' options elements
     const teamsOptions = teams.map((singleTeam) => {
         return (
             <option 
@@ -59,7 +62,7 @@ function UserInfo(props) {
         );
     });
 
-    
+    // get position's options elements based on the chosen team id
     const positionsOptions = positions.map((singlePos) => {
         const chosenTeam = teams.filter((e) => {
             if(e.id === Number(userInfoObj.team_id)) return true;
@@ -84,62 +87,61 @@ function UserInfo(props) {
 
         if(!userInfoObj.name || !userInfoObj.name.trim()) {
             errorsObj.name = 'სახელი არ უნდა იყოს ცარიელი';
-        }
+        };
 
         if(userInfoObj.name) {
             if(userInfoObj.name.length < 2) {
                 errorsObj.name = 'სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
-            }
+            };
             if(!langValid(userInfoObj.name)) {
                 errorsObj.name = 'სახელი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
-            }
-            // else errorsObj.firstName = ' ';
-        }
+            };
+        };
 
         if(!userInfoObj.surname || !userInfoObj.surname.trim()) {
             errorsObj.surname = 'გვარი არ უნდა იყოს ცარიელი';
-        }
+        };
 
         if(userInfoObj.surname){
             if(userInfoObj.surname.length < 2) {
             errorsObj.surname = 'გვარი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს';
-            }
+            };
             if(!langValid(userInfoObj.surname)) {
             errorsObj.surname = 'გვარი უნდა შეიცავდეს მხოლოდ ქართულ სიმბოლოებს';
-            }
-        }
+            };
+        };
 
         if(!userInfoObj.team_id) {
-            errorsObj.team_id = 'სავალდებულო ველი'
-        }
+            errorsObj.team_id = 'სავალდებულო ველი';
+        };
 
         if(!userInfoObj.position_id) {
-            errorsObj.position_id = 'სავალდებულო ველი'
-        }
+            errorsObj.position_id = 'სავალდებულო ველი';
+        };
 
         if(!userInfoObj.email) {
-            errorsObj.email = 'მეილი არ უნდა იყოს ცარიელი'
-        }
+            errorsObj.email = 'მეილი არ უნდა იყოს ცარიელი';
+        };
 
         if(userInfoObj.email && !mailValid(userInfoObj.email)) {
-            errorsObj.email = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით'
-        }
+            errorsObj.email = 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით';
+        };
 
         if(!userInfoObj.phone_number || !String(userInfoObj.phone_number).trim()) {
-            errorsObj.phone_number = 'ტელეფონის ნომერი არ უნდა იყოს ცარიელი'
-        }
+            errorsObj.phone_number = 'ტელეფონის ნომერი არ უნდა იყოს ცარიელი';
+        };
 
         if(userInfoObj.phone_number) {
             if(!numberValid(userInfoObj.phone_number)) {
-                errorsObj.phone_number = 'არასწორი ფორმატი, მაგალითი: +995558123456'
-            }
-        }
+                errorsObj.phone_number = 'არასწორი ფორმატი, მაგალითი: +995558123456';
+            };
+        };
 
         if(Object.keys(errorsObj).length) {
             return setErrors(errorsObj);
-        }
-        return navigate('../form/laptopInfo')
-    }
+        };
+        return navigate('../form/laptopInfo');
+    };
 
 
   return (

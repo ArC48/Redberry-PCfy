@@ -22,7 +22,6 @@ function LaptopInfo() {
         JSON.parse(localStorage.getItem('laptopInfo')) || 
         {
         laptop_name: '',
-        // laptop_image_base64: '',
         laptop_image: [],
         laptop_brand_id: '',
         laptop_cpu: '',
@@ -37,41 +36,42 @@ function LaptopInfo() {
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([]);
+
+    //state to review the picture which has been uploaded
     const [laptopImgPreview, setLaptopImgPreview] = useState('');
+    // note that the picture is lost after refresh unlike all the other information
+    //so you have to upload it again after refreshing the laptop form page
 
     const formData = new FormData();
 
     const navigate = useNavigate();
-    
-     // test code
-     console.log(laptopInfoObj)
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    onDrop: (acceptedFiles) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(acceptedFiles[0]);
+    //get the laptop picture and send it to main user state and preview state
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*',
+        onDrop: (acceptedFiles) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(acceptedFiles[0]);
 
-      reader.addEventListener('load', () => {
-        setLaptopInfoObj((prev) => ({
-          ...prev,
-          laptop_image: acceptedFiles[0],
-        }));
-        setLaptopImgPreview({laptop_image_base64: reader.result});
-      });
-    },
-  });
+        reader.addEventListener('load', () => {
+            setLaptopInfoObj((prev) => ({
+            ...prev,
+            laptop_image: acceptedFiles[0],
+            }));
+            setLaptopImgPreview({laptop_image_base64: reader.result});
+        });
+        },
+    });
 
    const receivedImage = laptopInfoObj.laptop_image? (
         <img
-        // key={file.name}
         src={laptopImgPreview.laptop_image_base64}
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         alt="laptop_pic"
         />
         ): '';
 
-
+    //when the chosen picture is not the right one, clicking 'choose another pic' button fires this function
    const handleCancel = () => {
     setLaptopInfoObj((prev) => ({
               ...prev,
@@ -81,7 +81,6 @@ function LaptopInfo() {
     setLaptopImgPreview({laptop_image_base64: ''})
   };
 
-    /////////////////////////////
     useEffect(() => {
         const getBrandsData = async () => {
             const brandsList = await reqWithoutBody('brands','GET');
@@ -103,6 +102,7 @@ function LaptopInfo() {
     }, [laptopInfoObj]);
 
 
+    //Validations and post request on submit button
     const onSubmitClick = () => {
         const errorsObj = {};
 
@@ -168,6 +168,7 @@ function LaptopInfo() {
 
         setErrors(errorsObj);
 
+        //if there's no error this object with all the user info is being saved in the form data
         if(Object.keys(errorsObj).length === 0) {
             const userInfoObj = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -193,11 +194,16 @@ function LaptopInfo() {
           };
 
           for(let i in userFinalInfoObject) {
-            formData.append(i, userFinalInfoObject[i])
+            formData.append(i, userFinalInfoObject[i]);
           }
+        //clearing localStorage after successful record
             localStorage.clear();
-            navigate('../success')
-            postRequest(formData)
+        
+        //modal window/page on a successful record
+            navigate('../success');
+
+        //send POST request to the database
+            postRequest(formData);
         }
         
     }

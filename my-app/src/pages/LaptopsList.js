@@ -8,13 +8,15 @@ import './laptopsList.css'
 
 function LaptopsList() {
     const [laptopsList, setLaptopsList] = useState([]);
+    
+    const token = '409dc6b87fa5f118fcf81cfe4538aca9';
 
     useEffect(() => {
         const getLaptops = async () => {
             const res = await reqWithBody(
                 'laptops',
                 'GET',
-                '409dc6b87fa5f118fcf81cfe4538aca9'
+                token
             );
             setLaptopsList(res.data);
         };

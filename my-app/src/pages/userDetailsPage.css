@@ -25,7 +25,6 @@
 }
 
 #additionalInfo {
-    /* width: 1050px; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;

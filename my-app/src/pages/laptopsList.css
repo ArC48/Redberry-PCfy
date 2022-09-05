@@ -1,11 +1,11 @@
 .laptopsList-container {
-  width: 1200px;
-  gap: 50px;
-  justify-content: flex-start;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 50px;
+    width: 1200px;
+    gap: 50px;
+    justify-content: flex-start;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
 }
 
 #laptopsList-header {

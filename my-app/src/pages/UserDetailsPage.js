@@ -36,25 +36,25 @@ function UserDetailsPage() {
     const [team, setTeam] = useState('');
     const [position, setPosition] = useState('');
     const [brand, setBrand] = useState('');
+    
+    const token = '409dc6b87fa5f118fcf81cfe4538aca9';
 
+    //get all the data of the current user & their laptops
     useEffect(() => {
     const getUserData = async () => {
       const response = await reqWithBody(
         'laptop',
         'GET',
-        '409dc6b87fa5f118fcf81cfe4538aca9',
+        token,
         id
       );
-
       setUserInfo(response.data);
     };
-
     getUserData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //get user team, position and laptop brand info by their id's
-
    useEffect(() => {
     const teamsList = async () => {
       const teamsData = await reqWithoutBody('teams', 'GET');

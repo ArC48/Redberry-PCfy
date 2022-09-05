@@ -84,7 +84,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* margin-top: 20px; */
 }
 
 .margin-top {
@@ -108,8 +107,6 @@
 .stretch-row {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
-    /* width: 100%; */
 }
 
 .dropdown {
@@ -120,7 +117,6 @@
 }
 
 .hr {
-    /* height: 2px; */
     border: 1px solid #C7C7C7;
     width: 100%;
     margin-bottom: 30px;
@@ -133,7 +129,6 @@
 .flex-column {
     display: flex;
     flex-direction: column;
-    /* margin: 20px; */
 }
 
 .flex-start {
@@ -142,7 +137,6 @@
 }
 
 .radio {
-    /* margin: 0 30px; */
     padding-left:30px;
 }
 
@@ -192,7 +186,7 @@
 }
 
 .save-btn {
-    width: 148px !important;
+    width: 180px !important;
     font-size: 20px;
 }
 

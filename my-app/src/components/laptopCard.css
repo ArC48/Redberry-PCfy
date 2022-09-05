@@ -45,8 +45,9 @@
         border-radius: 20px;
         gap: 2px;
         padding: 10px;
-        width: 100vw;
+        width: 92vw;
         height: 10rem;
+        margin-left: 15px;
     }
     .laptop-img {
         width: 150px;

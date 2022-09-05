@@ -1,6 +1,5 @@
 import React from 'react'
 import './input.css'
-import CheckMark from '../assets/Checkmark'
 
 function Input(props) {
   return (

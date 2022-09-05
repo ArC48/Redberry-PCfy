@@ -1,0 +1,47 @@
+.cracker img {
+    height: 250px;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.modalBackground {
+    width: 100%;
+    height: 200%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer {
+    width: 1000px;
+    height: 600px;
+    border-radius: 15px;
+    background: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.link-button {
+    background: none;
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-link-button {
+    width: 250px !important;
+}
+
+.link-button:hover {
+    cursor: pointer;
+}

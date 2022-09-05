@@ -1,0 +1,38 @@
+.laptopCard {
+    display: flex;
+    background-color: #EAFAFF;
+    border: 1px solid #aed1ea;
+    border-radius: 20px;
+    gap: 20px;
+    padding: 10px;
+    width: 45%;
+}
+
+.laptopCard img {
+    object-fit: cover;
+}
+
+.laptopImg {
+    width: 300px;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: fill;
+}
+
+.laptopInfo {
+    background-color: #eafaff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardP {
+    padding: 10px;
+    font-weight: 700;
+}
+
+.laptopInfo a {
+    color: #4386a9;
+    padding: 40px 10px;
+}

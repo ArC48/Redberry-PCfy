@@ -23,8 +23,8 @@ function Landing() {
         <Link to='form/userInfo'>
           <Button className='button' text='ჩანაწერის დამატება'/>
         </Link>
-        <Link to='form/laptopInfo'>
-        <Button className='list-button button' text='ჩანაწერების სია'/>
+        <Link to='/users'>
+          <Button className='list-button button' text='ჩანაწერების სია'/>
         </Link>
       </div>
     </div>

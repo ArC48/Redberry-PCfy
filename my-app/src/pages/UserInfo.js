@@ -145,11 +145,13 @@ function UserInfo(props) {
   return (
       <div>
         <div>
-            <Image 
-                className='arrow-back'
-                img={arrowBack}
-                alt='back'
-            />
+            <Link to="/">
+                <Image 
+                    className='arrow-back'
+                    img={arrowBack}
+                    alt='back'
+                />
+            </Link>
         </div>
         <div className='center-align'>
             <div className='routes'>

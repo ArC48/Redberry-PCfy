@@ -12,7 +12,8 @@ import { useDropzone } from 'react-dropzone'
 import mark from '../assets/mark.png'
 import lari from '../assets/lari.png'
 import warning from '../assets/warning.png'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Modal from '../components/Modal'
 
 
 function LaptopInfo(props) {
@@ -36,6 +37,8 @@ function LaptopInfo(props) {
     const [brands, setBrands] = useState([]);
     const [cpus, setCpus] = useState([]);
     const [errors, setErrors] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
+
     const formData = new FormData();
 
     const navigate = useNavigate();
@@ -165,7 +168,7 @@ function LaptopInfo(props) {
 
         setErrors(errorsObj);
 
-        if(!Object.keys(errors).length) {
+        if(Object.keys(errorsObj).length === 0) {
             const userInfoObj = JSON.parse(localStorage.getItem('userInfo'));
 
             const userFinalInfoObject = {
@@ -191,11 +194,9 @@ function LaptopInfo(props) {
 
           for(let i in userFinalInfoObject) {
             formData.append(i, userFinalInfoObject[i])
-            // console.log(i, userFinalInfoObject[i])
           }
-        //   console.log(userFinalInfoObject, formData)
-          postRequest(formData)
-
+          setOpenModal(true);
+        //   postRequest(formData)
         }
         
     }
@@ -218,13 +219,14 @@ function LaptopInfo(props) {
 
   return (
     <div>
-        <div
-        >
-            <Image 
-                className='arrow-back'
-                img={arrowBack}
-                alt='back'
-            />
+        <div>
+            <Link to="/">
+                <Image 
+                    className='arrow-back'
+                    img={arrowBack}
+                    alt='back'
+                />
+            </Link>
         </div>
         <div className='center-align'>
             <div className='routes'>
@@ -598,6 +600,7 @@ function LaptopInfo(props) {
                         text='დამახსოვრება'
                         handleFunction={onSubmitClick}
                     />
+                    {openModal && <Modal />}
                 </div>
             </div>
             <div>
